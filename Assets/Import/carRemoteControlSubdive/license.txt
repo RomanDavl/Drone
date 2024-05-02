@@ -1,0 +1,11 @@
+Model Information:
+* title:	carRemoteControlSubdive
+* source:	https://sketchfab.com/3d-models/carremotecontrolsubdive-9fb4b3c9087e48288c3fcbbda2cb8429
+* author:	vasylijbabich (https://sketchfab.com/vasylijbabich)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "carRemoteControlSubdive" (https://sketchfab.com/3d-models/carremotecontrolsubdive-9fb4b3c9087e48288c3fcbbda2cb8429) by vasylijbabich (https://sketchfab.com/vasylijbabich) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
