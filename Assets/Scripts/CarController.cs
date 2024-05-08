@@ -27,24 +27,22 @@ public class CarController : MonoBehaviour
     private float speed;
     public float Speed { get { return speed; } set { speed = value; } }
 
-    IEnumerator Start()
+    void Start()
     {
         playerRB = GetComponent<Rigidbody>();
-        yield return new WaitForSeconds(0.5f);
-        StartCoroutine(UpdateWheels());
     }
 
     private void Update()
     {
         //CheckInput();
-        speed = Mathf.Abs(frontRight.rpm * frontRight.radius * 2f * Mathf.PI / 10f);
+        speed = Mathf.Abs(backRight.rpm * backRight.radius * 2f * Mathf.PI / 10f);
         ApplyAcceleration();
         ApplyBraking();
         
-        /*UpdateWheel(frontRight, frontRightTransform, true);
-        UpdateWheel(frontLeft, frontLeftTransform, false);
-        UpdateWheel(backRight, backRightTransform, true);
-        UpdateWheel(backLeft, backLeftTransform, false);*/
+        UpdateWheel(frontRight, frontRightTransform);
+        UpdateWheel(frontLeft, frontLeftTransform);
+        UpdateWheel(backRight, backRightTransform);
+        UpdateWheel(backLeft, backLeftTransform);
     }
 
     public void SetInput(float acceleration, float steeringIn)
@@ -57,11 +55,11 @@ public class CarController : MonoBehaviour
 
         float movingDirection = Vector3.Dot(transform.forward, playerRB.velocity);
 
-        if (movingDirection < -0.5f && currentAcceleration < 0)
+        if (movingDirection < -0.5f && currentAcceleration > 0)
         {
             currentBrakingForce = Mathf.Abs(currentAcceleration);
         }
-        else if (movingDirection > 0.5f && currentAcceleration > 0)
+        else if (movingDirection > 0.5f && currentAcceleration < 0)
         {
             currentBrakingForce = Mathf.Abs(currentAcceleration);
         }
@@ -69,23 +67,24 @@ public class CarController : MonoBehaviour
         {
             currentBrakingForce = 0;
         }
+        Debug.Log("Current Acceleration = " + currentAcceleration);
     }
 
 
 
     private void ApplyAcceleration()
     {
-        backRight.motorTorque = -currentAcceleration * horsePower;
-        backLeft.motorTorque = -currentAcceleration * horsePower;
+        backRight.motorTorque = currentAcceleration * horsePower;
+        backLeft.motorTorque = currentAcceleration * horsePower;
     }
 
     private void ApplySteering(float steeringAngle)
     {
         //float steeringAngle = currentTurnAngle * steeringCurve.Evaluate(speed);
 
-        if (slipAngle < 120f)
+        if (Mathf.Abs(slipAngle) < 120f)
         {
-            steeringAngle += Vector3.SignedAngle(-transform.forward, playerRB.velocity + -transform.forward, Vector3.up);
+            steeringAngle += Vector3.SignedAngle(transform.forward, playerRB.velocity + transform.forward, Vector3.up);
         }
         steeringAngle = Mathf.Clamp(steeringAngle, -maxSteeringAngle, maxSteeringAngle);
         frontLeft.steerAngle = steeringAngle;
@@ -101,37 +100,13 @@ public class CarController : MonoBehaviour
         backLeft.brakeTorque = currentBrakingForce * brakingForce * 0.3f;
     }
 
-    IEnumerator UpdateWheels()
-    {
-        while (true)
-        {
-            ApplyAcceleration();
-            ApplyBraking();
-
-            UpdateWheel(frontRight, frontRightTransform, true);
-            UpdateWheel(frontLeft, frontLeftTransform, false);
-            UpdateWheel(backRight, backRightTransform, true);
-            UpdateWheel(backLeft, backLeftTransform, false);
-            yield return null;
-        }
-    }
-
-    private void UpdateWheel(WheelCollider col, Transform trans, bool isRightWheel)
+    private void UpdateWheel(WheelCollider col, Transform trans)
     {
         Vector3 position;
         Quaternion rotation;
         col.GetWorldPose(out position, out rotation);
 
         trans.position = position;
-
-        if (isRightWheel)
-        {
-            rotation *= Quaternion.Euler(0, 0, 90);
-        }
-        else
-        {
-            rotation *= Quaternion.Euler(90, 90, 0);
-        }
 
         trans.rotation = rotation;
     }
@@ -144,11 +119,11 @@ public class CarController : MonoBehaviour
         slipAngle = Vector3.Angle(transform.forward, playerRB.velocity - transform.forward);
 
         float movingDirection = Vector3.Dot(transform.forward, playerRB.velocity);
-        if (movingDirection < -0.5f && currentAcceleration < 0)
+        if (movingDirection < -0.5f && currentAcceleration > 0)
         {
             currentBrakingForce = Mathf.Abs(currentAcceleration);
         }
-        else if (movingDirection > 0.5f && currentAcceleration > 0)
+        else if (movingDirection > 0.5f && currentAcceleration < 0)
         {
             currentBrakingForce = Mathf.Abs(currentAcceleration);
         }

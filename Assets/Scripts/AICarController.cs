@@ -13,8 +13,8 @@ public class AICarController : MonoBehaviour
     [SerializeField] private float gasInput;
     [SerializeField] private bool isInsideBraking;
     public bool IsInsideBraking { get { return isInsideBraking; } set { isInsideBraking = value; } }
-    private float maxAngle = 40f;
-    private float maxSpeed = 300f;
+    private float maxAngle = 45f;
+    private float maxSpeed = 200f;
 
     void Start()
     {
@@ -33,17 +33,20 @@ public class AICarController : MonoBehaviour
                 currentWaypoint = 0;
         }
 
-        Vector3 forward = transform.TransformDirection(Vector3.back);
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        currentAngle = Vector3.SignedAngle(forward, waypoints[currentWaypoint].position - transform.position, Vector3.up);
 
-        Vector3 waypointDirection = (waypoints[currentWaypoint].position - transform.position).normalized;
-        currentAngle = Vector3.SignedAngle(forward, waypointDirection, Vector3.up);
+        Debug.Log("Angle - " + currentAngle);
 
-        gasInput = Mathf.Clamp01(maxAngle - Mathf.Abs(carController.Speed * 0.01f * currentAngle) / maxAngle);
+        gasInput = Mathf.Clamp01(maxAngle - Mathf.Abs(carController.Speed * 0.02f * currentAngle) / maxAngle);
+        
         if (isInsideBraking)
         {
             gasInput = -gasInput * (Mathf.Clamp01((carController.Speed / maxSpeed) * 2 - 1f));
         }
         carController.SetInput(gasInput, currentAngle);
+
+        Debug.Log("Speed - " + carController.Speed);
 
         Debug.DrawRay(transform.position, waypoints[currentWaypoint].position - transform.position, Color.yellow);
     }
