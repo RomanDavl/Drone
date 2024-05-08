@@ -14,10 +14,4 @@ public class WaypointContainer : MonoBehaviour
         }
         waypoints.Remove(waypoints[0]);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

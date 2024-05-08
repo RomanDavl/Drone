@@ -36,17 +36,13 @@ public class AICarController : MonoBehaviour
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         currentAngle = Vector3.SignedAngle(forward, waypoints[currentWaypoint].position - transform.position, Vector3.up);
 
-        Debug.Log("Angle - " + currentAngle);
-
         gasInput = Mathf.Clamp01(maxAngle - Mathf.Abs(carController.Speed * 0.02f * currentAngle) / maxAngle);
-        
+
         if (isInsideBraking)
         {
             gasInput = -gasInput * (Mathf.Clamp01((carController.Speed / maxSpeed) * 2 - 1f));
         }
         carController.SetInput(gasInput, currentAngle);
-
-        Debug.Log("Speed - " + carController.Speed);
 
         Debug.DrawRay(transform.position, waypoints[currentWaypoint].position - transform.position, Color.yellow);
     }

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
@@ -38,7 +37,7 @@ public class CarController : MonoBehaviour
         speed = Mathf.Abs(backRight.rpm * backRight.radius * 2f * Mathf.PI / 10f);
         ApplyAcceleration();
         ApplyBraking();
-        
+
         UpdateWheel(frontRight, frontRightTransform);
         UpdateWheel(frontLeft, frontLeftTransform);
         UpdateWheel(backRight, backRightTransform);
@@ -67,7 +66,6 @@ public class CarController : MonoBehaviour
         {
             currentBrakingForce = 0;
         }
-        Debug.Log("Current Acceleration = " + currentAcceleration);
     }
 
 
