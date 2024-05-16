@@ -5,7 +5,7 @@ using static UnityEngine.GridBrushBase;
 public class Cameratoration : MonoBehaviour
 {
     [SerializeField] private CinemachineFreeLook freeLookCam;
-    [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private float rotationSpeed = 40f;
     [SerializeField] private AICarController controller;
     [SerializeField] private Transform city;
 
