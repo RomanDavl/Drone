@@ -1,0 +1,11 @@
+Model Information:
+* title:	LowPoly Cars
+* source:	https://sketchfab.com/3d-models/lowpoly-cars-93c25a74eaab4132a7c3f230942efc28
+* author:	Murat Akdan (https://sketchfab.com/MuratAkdan)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "LowPoly Cars" (https://sketchfab.com/3d-models/lowpoly-cars-93c25a74eaab4132a7c3f230942efc28) by Murat Akdan (https://sketchfab.com/MuratAkdan) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

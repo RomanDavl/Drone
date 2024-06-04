@@ -21,7 +21,7 @@ public class AICarController : MonoBehaviour
         carController = GetComponent<CarController>();
         waypoints = waypointContainer.waypoints;
         currentWaypoint = 0;
-        waypointRange = 2f;
+        waypointRange = 3f;
     }
 
     void Update()
