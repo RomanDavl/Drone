@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -151,7 +151,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 390.58, y: -1.646, z: -483.01}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.7600646, y: 2.7600646, z: 2.7600646}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1419126825}
@@ -3442,6 +3442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints: []
+  distanceTotal: 0
 --- !u!1 &1345881554
 GameObject:
   m_ObjectHideFlags: 3
@@ -3708,6 +3709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints: []
+  distanceTotal: 0
 --- !u!1 &1477796033
 GameObject:
   m_ObjectHideFlags: 0
@@ -14319,14 +14321,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2693294497608263352}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.08832075, y: -0.60659593, z: 0.06806182, w: 0.7871521}
-  m_LocalPosition: {x: 77.98512, y: 21.745457, z: 2.958187}
+  m_LocalRotation: {x: 0.0486551, y: -0.99069417, z: 0.105452895, w: 0.070974626}
+  m_LocalPosition: {x: 73.30956, y: 21.688278, z: 9.073004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 543450653272077781}
   m_Father: {fileID: 1163469578}
-  m_LocalEulerAnglesHint: {x: 0.394, y: -134.783, z: -1.4}
+  m_LocalEulerAnglesHint: {x: 12.465, y: -172.327, z: -4.784}
 --- !u!114 &2693294497608263358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14387,7 +14389,8 @@ MonoBehaviour:
   speed: 15
   rotationSpeed: 2
   hoverHeight: 20
-  carFollowSpeed: 20
+  carFollowSpeed: 10
+  waypointContainer: {fileID: 1419126826}
 --- !u!54 &2693294497608263360
 Rigidbody:
   m_ObjectHideFlags: 0

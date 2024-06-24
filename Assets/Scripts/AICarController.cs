@@ -29,6 +29,7 @@ public class AICarController : MonoBehaviour
         if (Vector3.Distance(waypoints[currentWaypoint].position, transform.position) < waypointRange)
         {
             currentWaypoint++;
+            Debug.Log("waypoint " + currentWaypoint);
             if (currentWaypoint == waypoints.Count)
                 currentWaypoint = 0;
         }
@@ -43,7 +44,7 @@ public class AICarController : MonoBehaviour
             gasInput = -gasInput * (Mathf.Clamp01((carController.Speed / maxSpeed) * 2 - 1f));
         }
         carController.SetInput(gasInput, currentAngle);
-
+       
         Debug.DrawRay(transform.position, waypoints[currentWaypoint].position - transform.position, Color.yellow);
     }
 }
