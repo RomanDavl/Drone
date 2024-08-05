@@ -46,7 +46,7 @@ public class DroneMovement : MonoBehaviour
        
     }
 
-    void Update()
+    void FixedUpdate()
     {
         
         if (!followCar && targetWaypoint == null)
