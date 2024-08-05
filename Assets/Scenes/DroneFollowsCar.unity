@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -894,6 +894,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   slipAngle: 0
   maxSteeringAngle: 40
+  speed: 0
+  maxSpeed: 80
 --- !u!64 &188351522
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3005,6 +3007,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   slipAngle: 0
   maxSteeringAngle: 40
+  speed: 0
+  maxSpeed: 80
 --- !u!64 &967417896
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3490,7 +3494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 1487051601}
-  m_PathPosition: 1.970047
+  m_PathPosition: 7.335961
   m_PositionUnits: 0
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
@@ -4685,6 +4689,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   slipAngle: 0
   maxSteeringAngle: 35
+  speed: 0
+  maxSpeed: 80
 --- !u!64 &1772547901
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14380,7 +14386,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2693294497608263352}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca9058e23134a06478032b60f2b1a653, type: 3}
   m_Name: 
@@ -14391,6 +14397,7 @@ MonoBehaviour:
   hoverHeight: 20
   carFollowSpeed: 10
   waypointContainer: {fileID: 1419126826}
+  zoomSpeed: 5
 --- !u!54 &2693294497608263360
 Rigidbody:
   m_ObjectHideFlags: 0

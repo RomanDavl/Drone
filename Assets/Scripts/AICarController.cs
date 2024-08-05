@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 [RequireComponent(typeof(CarController))]
 public class AICarController : MonoBehaviour
@@ -14,7 +15,6 @@ public class AICarController : MonoBehaviour
     [SerializeField] private bool isInsideBraking;
     public bool IsInsideBraking { get { return isInsideBraking; } set { isInsideBraking = value; } }
     private float maxAngle = 45f;
-    private float maxSpeed = 200f;
 
     void Start()
     {
@@ -39,11 +39,19 @@ public class AICarController : MonoBehaviour
 
         gasInput = Mathf.Clamp01(maxAngle - Mathf.Abs(carController.Speed * 0.02f * currentAngle) / maxAngle);
 
-        if (isInsideBraking)
-        {
-            gasInput = -gasInput * (Mathf.Clamp01((carController.Speed / maxSpeed) * 2 - 1f));
-        }
+        carController.MaxSpeed = isInsideBraking ? 40f : 80f;
+        Debug.Log("MaxSpeed set to: " + carController.MaxSpeed);
+        
+
         carController.SetInput(gasInput, currentAngle);
+
+        if (carController.Speed > carController.MaxSpeed)
+        {
+            carController.Speed = carController.MaxSpeed;
+            Debug.Log("Speed limited to MaxSpeed: " + carController.MaxSpeed);
+        }
+
+        //carController.SetInput(gasInput, currentAngle);
        
         Debug.DrawRay(transform.position, waypoints[currentWaypoint].position - transform.position, Color.yellow);
     }

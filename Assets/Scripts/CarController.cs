@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class CarController : MonoBehaviour
 {
@@ -23,8 +24,10 @@ public class CarController : MonoBehaviour
     private float currentBrakingForce = 0f;
     private Rigidbody playerRB;
     //private float currentTurnAngle = 0f;
-    private float speed;
+    [SerializeField] private float speed;
     public float Speed { get { return speed; } set { speed = value; } }
+    [SerializeField] private float maxSpeed = 80f;
+    public float MaxSpeed { get { return maxSpeed; } set { maxSpeed = value; Debug.Log("MaxSpeed changed to: " + maxSpeed); } }
 
     void Start()
     {
@@ -33,8 +36,7 @@ public class CarController : MonoBehaviour
 
     private void Update()
     {
-        //CheckInput();
-        speed = Mathf.Abs(backRight.rpm * backRight.radius * 2f * Mathf.PI / 10f);
+        speed = Mathf.Min(Mathf.Abs(backRight.rpm * backRight.radius * 2f * Mathf.PI / 10f), maxSpeed);
         ApplyAcceleration();
         ApplyBraking();
 
@@ -47,6 +49,13 @@ public class CarController : MonoBehaviour
     public void SetInput(float acceleration, float steeringIn)
     {
         currentAcceleration = acceleration;
+
+        if (speed > maxSpeed)
+        {
+            speed = maxSpeed;
+        }
+        
+        Debug.Log("MaxSpeed set to: " + maxSpeed);
 
         ApplySteering(steeringIn);
 
@@ -66,14 +75,26 @@ public class CarController : MonoBehaviour
         {
             currentBrakingForce = 0;
         }
+
+        ApplyAcceleration();
+        ApplyBraking();
     }
 
 
 
     private void ApplyAcceleration()
     {
-        backRight.motorTorque = currentAcceleration * horsePower;
-        backLeft.motorTorque = currentAcceleration * horsePower;
+        if (speed < maxSpeed)
+    {
+            backRight.motorTorque = currentAcceleration * horsePower;
+            backLeft.motorTorque = currentAcceleration * horsePower;
+        }
+    else
+        {
+            backRight.motorTorque = 0;
+            backLeft.motorTorque = 0;
+            speed = Mathf.Lerp(speed, maxSpeed, Time.deltaTime);
+        }
     }
 
     private void ApplySteering(float steeringAngle)
@@ -108,26 +129,4 @@ public class CarController : MonoBehaviour
 
         trans.rotation = rotation;
     }
-
-    /*private void CheckInput()
-    {
-        currentAcceleration = Input.GetAxis("Vertical");
-        currentTurnAngle = Input.GetAxis("Horizontal");
-
-        slipAngle = Vector3.Angle(transform.forward, playerRB.velocity - transform.forward);
-
-        float movingDirection = Vector3.Dot(transform.forward, playerRB.velocity);
-        if (movingDirection < -0.5f && currentAcceleration > 0)
-        {
-            currentBrakingForce = Mathf.Abs(currentAcceleration);
-        }
-        else if (movingDirection > 0.5f && currentAcceleration < 0)
-        {
-            currentBrakingForce = Mathf.Abs(currentAcceleration);
-        }
-        else
-        {
-            currentBrakingForce = 0;
-        }
-    }*/
 }
