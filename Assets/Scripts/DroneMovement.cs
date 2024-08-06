@@ -152,7 +152,7 @@ public class DroneMovement : MonoBehaviour
         {
             
             Vector3 direction = (target - transform.position).normalized;
-            transform.position += direction * auto.Speed * Time.deltaTime;
+            transform.position += direction * 15 * Time.deltaTime;
             Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
             Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
             cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
@@ -204,7 +204,7 @@ public class DroneMovement : MonoBehaviour
         {
             
             Vector3 direction = (target - transform.position).normalized;
-            transform.position += direction * auto.Speed * 0.1f * Time.deltaTime;
+            transform.position += direction * 15 * Time.deltaTime;
             Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
             Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
             cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
