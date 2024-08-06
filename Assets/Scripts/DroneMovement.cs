@@ -29,6 +29,8 @@ public class DroneMovement : MonoBehaviour
 
     private float zooom = 1;
     public float zoomSpeed = 5f;
+
+    [SerializeField] private CarController auto;
     
     
 
@@ -148,9 +150,9 @@ public class DroneMovement : MonoBehaviour
         // Bewege das Objekt nur, wenn es noch nicht nahe genug am Ziel ist
         if (Vector3.Distance(target, transform.position) > waypointRange)
         {
-            CarController carController = new CarController();
+            
             Vector3 direction = (target - transform.position).normalized;
-            transform.position += direction * 15 * Time.deltaTime;
+            transform.position += direction * auto.Speed * Time.deltaTime;
             Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
             Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
             cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
@@ -200,9 +202,9 @@ public class DroneMovement : MonoBehaviour
         // Bewege das Objekt nur, wenn es noch nicht nahe genug am Ziel ist
         if (Vector3.Distance(target, transform.position) > waypointRange)
         {
-            CarController carController = new CarController();
+            
             Vector3 direction = (target - transform.position).normalized;
-            transform.position += direction * 12 * Time.deltaTime;
+            transform.position += direction * auto.Speed * 0.1f * Time.deltaTime;
             Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
             Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
             cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
