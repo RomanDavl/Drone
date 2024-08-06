@@ -27,7 +27,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private float speed;
     public float Speed { get { return speed; } set { speed = value; } }
     [SerializeField] private float maxSpeed = 80f;
-    public float MaxSpeed { get { return maxSpeed; } set { maxSpeed = value; Debug.Log("MaxSpeed changed to: " + maxSpeed); } }
+    public float MaxSpeed { get { return maxSpeed; } set { maxSpeed = value; } }
 
     void Start()
     {
@@ -53,9 +53,7 @@ public class CarController : MonoBehaviour
         if (speed > maxSpeed)
         {
             speed = maxSpeed;
-        }
-        
-        Debug.Log("MaxSpeed set to: " + maxSpeed);
+        }      
 
         ApplySteering(steeringIn);
 
