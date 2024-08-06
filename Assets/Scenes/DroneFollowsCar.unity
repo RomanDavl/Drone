@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2400,8 +2400,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -196.7, y: -196.9}
-  m_SizeDelta: {x: 350, y: 350}
+  m_AnchoredPosition: {x: -104.6, y: -102.9}
+  m_SizeDelta: {x: 205, y: 205}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &664714696
 MonoBehaviour:
@@ -3781,8 +3781,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -174.99992, y: -175.00003}
-  m_SizeDelta: {x: 330, y: 330}
+  m_AnchoredPosition: {x: -102.2, y: -103.1}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1149859841
 MonoBehaviour:
@@ -6901,11 +6901,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b7c6f42c53dbc47842cee420d35b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 543450653272077781}
-  offsetX: 74.6
-  offsetY: 310.7
-  offsetZ: 8.3
-  LerpSpeed: 2
 --- !u!1 &2142224372
 GameObject:
   m_ObjectHideFlags: 0
@@ -15226,13 +15221,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca9058e23134a06478032b60f2b1a653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetWaypoint: {fileID: 188351519}
+  targetWaypoint: {fileID: 1515861673}
   speed: 15
   rotationSpeed: 2
   hoverHeight: 20
   carFollowSpeed: 5
   waypointContainer: {fileID: 1419126826}
   zoomSpeed: 5
+  auto: {fileID: 0}
 --- !u!54 &2693294497608263360
 Rigidbody:
   m_ObjectHideFlags: 0
