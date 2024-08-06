@@ -58,7 +58,9 @@ public class DroneMovement : MonoBehaviour
         if (followCar)
         {
             //FollowCar();
-            Drohnenshot();
+            //Drohnenshot1();
+            Drohnenshot2();
+
         }
         else
         {
@@ -107,203 +109,259 @@ public class DroneMovement : MonoBehaviour
         }
     }
 
-   
 
-    void Drohnenshot()
+
+    void Drohnenshot1()
     {
         if (currentWaypoint >= waypoints.Count)
-    {
-        // Wenn alle Waypoints erreicht sind, kann die Funktion beendet werden
-        return;
-    }
+        {
+            // Wenn alle Waypoints erreicht sind, kann die Funktion beendet werden
+            return;
+        }
 
-    // Berechne das Ziel basierend auf dem aktuellen Waypoint
-    Vector3 target;
+        // Berechne das Ziel basierend auf dem aktuellen Waypoint
+        Vector3 target;
 
-    if (currentWaypoint < 4)
-    {
-        target = new Vector3(waypoints[currentWaypoint].position.x + 50, hoverHeight, waypoints[currentWaypoint].position.z + 60);
-        //zooom += zoomSpeed * Time.deltaTime;
+        if (currentWaypoint < 4)
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x + 50, hoverHeight, waypoints[currentWaypoint].position.z + 60);
+            //zooom += zoomSpeed * Time.deltaTime;
 
-    }
-    else if (currentWaypoint < 8)
-    {
-        target = new Vector3(waypoints[currentWaypoint].position.x + 40, hoverHeight, waypoints[currentWaypoint].position.z + 60);
-        
-        //zooom += zoomSpeed * Time.deltaTime;
-    }
-    else if (currentWaypoint < 10)
-    {
-        target = new Vector3(waypoints[currentWaypoint].position.x + 30, hoverHeight, waypoints[currentWaypoint].position.z + 50);
-        //zooom += zoomSpeed * Time.deltaTime;
-    }
-    else
-    {
-        target = new Vector3(waypoints[currentWaypoint].position.x + 10, hoverHeight, waypoints[currentWaypoint].position.z + 30);
-    }
-   
+        }
+        else if (currentWaypoint < 8)
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x + 40, hoverHeight, waypoints[currentWaypoint].position.z + 60);
 
-    // Bewege das Objekt nur, wenn es noch nicht nahe genug am Ziel ist
-    if (Vector3.Distance(target, transform.position) > waypointRange)
-    {
-        CarController carController = new CarController();
-        Vector3 direction = (target - transform.position).normalized;
-        transform.position += direction * 15 * Time.deltaTime;
-         Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
+            //zooom += zoomSpeed * Time.deltaTime;
+        }
+        else if (currentWaypoint < 10)
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x + 30, hoverHeight, waypoints[currentWaypoint].position.z + 50);
+            //zooom += zoomSpeed * Time.deltaTime;
+        }
+        else
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x + 10, hoverHeight, waypoints[currentWaypoint].position.z + 30);
+        }
+
+
+        // Bewege das Objekt nur, wenn es noch nicht nahe genug am Ziel ist
+        if (Vector3.Distance(target, transform.position) > waypointRange)
+        {
+            CarController carController = new CarController();
+            Vector3 direction = (target - transform.position).normalized;
+            transform.position += direction * 15 * Time.deltaTime;
+            Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
             Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
             cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
+        }
+        else
+        {
+            // Erhöhe den aktuellen Waypoint, wenn das Ziel erreicht ist
+            currentWaypoint += 1;
+        }
+
     }
-    else
+
+    void Drohnenshot2 ()
     {
-        // Erhöhe den aktuellen Waypoint, wenn das Ziel erreicht ist
-        currentWaypoint += 1;
+        if (currentWaypoint >= waypoints.Count)
+        {
+            // Wenn alle Waypoints erreicht sind, kann die Funktion beendet werden
+            return;
+        }
+
+        // Berechne das Ziel basierend auf dem aktuellen Waypoint
+        Vector3 target;
+
+        if (currentWaypoint < 4)
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x + 50, hoverHeight+50, waypoints[currentWaypoint].position.z - 80);
+            //zooom += zoomSpeed * Time.deltaTime;
+
+        }
+        else if (currentWaypoint < 8)
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x + 40, hoverHeight+40, waypoints[currentWaypoint].position.z - 70);
+
+            //zooom += zoomSpeed * Time.deltaTime;
+        }
+        else if (currentWaypoint < 12)
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x + 30, hoverHeight, waypoints[currentWaypoint].position.z - 60);
+            //zooom += zoomSpeed * Time.deltaTime;
+        }
+        else
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x + 10, hoverHeight-20, waypoints[currentWaypoint].position.z -20);
+        }
+
+
+        // Bewege das Objekt nur, wenn es noch nicht nahe genug am Ziel ist
+        if (Vector3.Distance(target, transform.position) > waypointRange)
+        {
+            CarController carController = new CarController();
+            Vector3 direction = (target - transform.position).normalized;
+            transform.position += direction * 12 * Time.deltaTime;
+            Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
+            Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
+            cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
+        }
+        else
+        {
+            // Erhöhe den aktuellen Waypoint, wenn das Ziel erreicht ist
+            currentWaypoint += 1;
+        }
     }
 
+    
 
 
-
-
-
-       /* if (currentWaypoint == 0)
-        {
-
-            Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 60, hoverHeight, waypoints[currentWaypoint].transform.position.z + 60);
-
-            if (Vector3.Distance(target, transform.position) < waypointRange)
-
-            {
-                currentWaypoint += 2;
-            }
-
-            Vector3 direction = (target - transform.position).normalized;
-            transform.position += direction * 15 * Time.deltaTime;
-
-        }
-
-        else if (currentWaypoint == 2)
-        {
-            Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 60, hoverHeight, waypoints[currentWaypoint].transform.position.z + 60);
-
-            if (Vector3.Distance(target, transform.position) < waypointRange)
-
-            {
-                currentWaypoint += 2;
-            }
-
-  
-            Vector3 direction = (target - transform.position).normalized;
-            transform.position += direction * 15 * Time.deltaTime;
-
-        }
-
-        else if (currentWaypoint == 4)
-        {
-            Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 50, hoverHeight, waypoints[currentWaypoint].transform.position.z + 60);
-
-
-            if (Vector3.Distance(target, transform.position) < waypointRange)
-
-            {
-                currentWaypoint += 2;
-            }
-
-            Vector3 direction2 = (target - transform.position).normalized;
-            transform.position += direction2 * 15 * Time.deltaTime;
-
-        }
-
-        else if (currentWaypoint == 6)
-        {
-            Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 50, hoverHeight, waypoints[currentWaypoint].transform.position.z + 60);
-
-
-            if (Vector3.Distance(target, transform.position) < waypointRange)
-
-            {
-                currentWaypoint += 2;
-            }
-
-            Vector3 direction2 = (target - transform.position).normalized;
-            transform.position += direction2 * 15 * Time.deltaTime;
-
-        }
-
-        else if (currentWaypoint == 8)
-        {
-            Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 50, hoverHeight, waypoints[currentWaypoint].transform.position.z + 50);
-
-
-            if (Vector3.Distance(target, transform.position) < waypointRange)
-
-            {
-                currentWaypoint += 2;
-            }
-
-            Vector3 direction2 = (target - transform.position).normalized;
-            transform.position += direction2 * 15 * Time.deltaTime;
-
-        }
-
-        else if (currentWaypoint == 10)
-        {
-            Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 30, hoverHeight, waypoints[currentWaypoint].transform.position.z + 30);
-
-
-            if (Vector3.Distance(target, transform.position) < waypointRange)
-
-            {
-                //cameraTransform.rotation= new Quaternion (0, 0, 0,0);
-                currentWaypoint += 2;
-            }
-
-            Vector3 direction2 = (target - transform.position).normalized;
-            transform.position += direction2 * 15 * Time.deltaTime;
-
-        }
-
-        else if (currentWaypoint == 12)
-        {
-            Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 30, hoverHeight, waypoints[currentWaypoint].transform.position.z + 30);
-
-
-            if (Vector3.Distance(target, transform.position) < waypointRange)
-
-            {
-                currentWaypoint += 2;
-            }
-
-            Vector3 direction2 = (target - transform.position).normalized;
-            transform.position += direction2 * 15 * Time.deltaTime;
-
-        }
-
-        else if (currentWaypoint == 14)
-        {
-            Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 30, hoverHeight, waypoints[currentWaypoint].transform.position.z + 30);
-
-
-            if (Vector3.Distance(target, transform.position) < waypointRange)
-
-            {
-                
-            }
-
-            Vector3 direction2 = (target - transform.position).normalized;
-            transform.position += direction2 * 15 * Time.deltaTime;
-
-        }*/
-
-
-
-        //Debug.DrawRay(transform.position, waypoints[currentWaypoint].position - transform.position, Color.yellow);
-    }
-
-    void OnTriggerEnter(Collider other)
+    void DrohnenshotAlt()
     {
-        if (other.CompareTag("Car"))
-        {
-            followCar = true; // Aktiviere das Folgen des Autos
-            carTarget = other.transform; // Setze das Auto als Zielobjekt
-        }
+            if (currentWaypoint == 0)
+            {
+
+                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 60, hoverHeight, waypoints[currentWaypoint].transform.position.z + 60);
+
+                if (Vector3.Distance(target, transform.position) < waypointRange)
+
+                {
+                    currentWaypoint += 2;
+                }
+
+                Vector3 direction = (target - transform.position).normalized;
+                transform.position += direction * 15 * Time.deltaTime;
+
+            }
+
+            else if (currentWaypoint == 2)
+            {
+                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 60, hoverHeight, waypoints[currentWaypoint].transform.position.z + 60);
+
+                if (Vector3.Distance(target, transform.position) < waypointRange)
+
+                {
+                    currentWaypoint += 2;
+                }
+
+
+                Vector3 direction = (target - transform.position).normalized;
+                transform.position += direction * 15 * Time.deltaTime;
+
+            }
+
+            else if (currentWaypoint == 4)
+            {
+                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 50, hoverHeight, waypoints[currentWaypoint].transform.position.z + 60);
+
+
+                if (Vector3.Distance(target, transform.position) < waypointRange)
+
+                {
+                    currentWaypoint += 2;
+                }
+
+                Vector3 direction2 = (target - transform.position).normalized;
+                transform.position += direction2 * 15 * Time.deltaTime;
+
+            }
+
+            else if (currentWaypoint == 6)
+            {
+                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 50, hoverHeight, waypoints[currentWaypoint].transform.position.z + 60);
+
+
+                if (Vector3.Distance(target, transform.position) < waypointRange)
+
+                {
+                    currentWaypoint += 2;
+                }
+
+                Vector3 direction2 = (target - transform.position).normalized;
+                transform.position += direction2 * 15 * Time.deltaTime;
+
+            }
+
+            else if (currentWaypoint == 8)
+            {
+                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 50, hoverHeight, waypoints[currentWaypoint].transform.position.z + 50);
+
+
+                if (Vector3.Distance(target, transform.position) < waypointRange)
+
+                {
+                    currentWaypoint += 2;
+                }
+
+                Vector3 direction2 = (target - transform.position).normalized;
+                transform.position += direction2 * 15 * Time.deltaTime;
+
+            }
+
+            else if (currentWaypoint == 10)
+            {
+                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 30, hoverHeight, waypoints[currentWaypoint].transform.position.z + 30);
+
+
+                if (Vector3.Distance(target, transform.position) < waypointRange)
+
+                {
+                    //cameraTransform.rotation= new Quaternion (0, 0, 0,0);
+                    currentWaypoint += 2;
+                }
+
+                Vector3 direction2 = (target - transform.position).normalized;
+                transform.position += direction2 * 15 * Time.deltaTime;
+
+            }
+
+            else if (currentWaypoint == 12)
+            {
+                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 30, hoverHeight, waypoints[currentWaypoint].transform.position.z + 30);
+
+
+                if (Vector3.Distance(target, transform.position) < waypointRange)
+
+                {
+                    currentWaypoint += 2;
+                }
+
+                Vector3 direction2 = (target - transform.position).normalized;
+                transform.position += direction2 * 15 * Time.deltaTime;
+
+            }
+
+            else if (currentWaypoint == 14)
+            {
+                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 30, hoverHeight, waypoints[currentWaypoint].transform.position.z + 30);
+
+
+                if (Vector3.Distance(target, transform.position) < waypointRange)
+
+                {
+
+                }
+
+                Vector3 direction2 = (target - transform.position).normalized;
+                transform.position += direction2 * 15 * Time.deltaTime;
+
+            }
+
+
+
+
+            //Debug.DrawRay(transform.position, waypoints[currentWaypoint].position - transform.position, Color.yellow);
     }
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Car"))
+            {
+                followCar = true; // Aktiviere das Folgen des Autos
+                carTarget = other.transform; // Setze das Auto als Zielobjekt
+            }
+        }
+
+    
 }
