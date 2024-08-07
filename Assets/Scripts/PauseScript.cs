@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 using UnityEngine;
 
 public class PauseScript : MonoBehaviour
 {
     public GameObject pauseText;
+    public Button pauseButton;
+    public Button resumeButton;
     private bool isPaused = false;
 
     void Start()
@@ -20,14 +22,28 @@ public class PauseScript : MonoBehaviour
         {
             Debug.LogError("PauseText GameObject is not assigned.");
         }
+        if (pauseButton != null && resumeButton != null)
+        {
+            pauseButton.onClick.AddListener(Pause);
+            resumeButton.onClick.AddListener(Resume);
+        }
+        else
+        {
+            Debug.LogError("PauseButton or ResumeButton is not assigned.");
+        }
+
+        
     }
+
+    
 
     void Update()
     {
+
         
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("Escape key was pressed");
+            Debug.Log("P key was pressed");
             if (isPaused)
             {
                 Resume();
@@ -37,6 +53,12 @@ public class PauseScript : MonoBehaviour
                 Pause();
             }
         }
+        if (pauseButton != null && resumeButton != null)
+        {
+            
+            UpdateButtonVisibility();
+        }
+        
     }
 
     public void Pause()
@@ -59,5 +81,13 @@ public class PauseScript : MonoBehaviour
             pauseText.SetActive(false);
         }
         isPaused = false;
+    }
+    private void UpdateButtonVisibility()
+    {
+        if (pauseButton != null && resumeButton != null)
+        {
+            pauseButton.gameObject.SetActive(!isPaused);
+            resumeButton.gameObject.SetActive(isPaused);
+        }
     }
 }
