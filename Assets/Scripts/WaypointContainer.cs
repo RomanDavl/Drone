@@ -64,13 +64,11 @@ public class WaypointContainer : MonoBehaviour
                 distance = Vector3.Distance(prev.position, list[i].position);
                 distanceBisDrohnenshot += distance;
                 prev = list[i];
-                Debug.Log("One distance: " + distance);
+                //Debug.Log("One distance: " + distance);
             }
         }
 
-        Debug.Log("Hallo");
-        Debug.Log("DistanceBisDrohnenshot: " + distanceBisDrohnenshot);
-        Debug.Log("Hallo2");
+        
 
         return distanceBisDrohnenshot;
     }
@@ -85,11 +83,7 @@ public class WaypointContainer : MonoBehaviour
         return list;
     }
 
-    private void Start()
-    {
-        List<Transform> list = GetWaypointUpToIndex(4);
-        GetDistanceBisDrohnenshot(list);
-    }
+    
 }
 
 

@@ -45,7 +45,9 @@ public class DroneMovement : MonoBehaviour
         waypointRange = 3f;
         float total = waypointContainer.GetDistanceTotal();
         Debug.Log(total);
-       
+        float total2 = waypointContainer.GetDistanceBisDrohnenshot(waypointContainer.GetWaypointUpToIndex(4));
+        Debug.Log(total2);
+
     }
 
     void FixedUpdate()
