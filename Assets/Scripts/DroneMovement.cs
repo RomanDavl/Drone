@@ -31,6 +31,7 @@ public class DroneMovement : MonoBehaviour
     public float zoomSpeed = 5f;
 
     [SerializeField] private CarController auto;
+    private int currentShot = 1;
     
     
 
@@ -61,15 +62,30 @@ public class DroneMovement : MonoBehaviour
 
         if (followCar)
         {
-            //FollowCar();
-            //Drohnenshot1();
-            Drohnenshot2();
-
+            switch (currentShot)
+            {
+                case 1:
+                    Drohnenshot1();
+                    break;
+                case 2:
+                    Drohnenshot2();
+                    break;
+                case 3:
+                    DrohnenshotAlt();
+                    break;
+                default:
+                    Drohnenshot1();
+                    break;
+            }
         }
         else
         {
             FlyToWaypoint();
         }
+    }
+    public void SetShot(int shotNumber)
+    {
+        currentShot = shotNumber;
     }
 
     void FlyToWaypoint()
