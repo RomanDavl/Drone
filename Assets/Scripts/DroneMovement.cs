@@ -17,7 +17,8 @@ public class DroneMovement : MonoBehaviour
     public float carFollowSpeed = 20f; // Geschwindigkeit, mit der die Drohne dem Auto folgt
 
     private bool followCar = false; // Flag, um das Folgen des Autos zu aktivieren
-    private Transform carTarget; // Das Auto-Zielobjekt
+    [SerializeField] private Transform carTarget; // Das Auto-Zielobjekt
+
     private Transform cameraTransform; // Die Kamera, die an der Drohne befestigt ist
     
     int i = 0;
@@ -51,15 +52,18 @@ public class DroneMovement : MonoBehaviour
         waypointRange = 3f;
         float total = waypointContainer.GetDistanceTotal();
         Debug.Log(total);
-        float total2 = waypointContainer.GetDistanceBisDrohnenshot(waypointContainer.GetWaypointUpToIndex(4));
-        Debug.Log(total2);
+      
         isTimeSet = false;
+
+        float distanceTillMeetingpoint = waypointContainer.GetDistanceBisDrohnenshot(waypointContainer.GetAllWaypointsUpToWaypoint(targetWaypoint));
+        Debug.Log(distanceTillMeetingpoint);
+
 
     }
 
     void FixedUpdate()
     {
-        
+        /*
         if (!followCar && targetWaypoint == null)
         {
             Debug.LogError("Target Waypoint is not set.");
@@ -88,6 +92,53 @@ public class DroneMovement : MonoBehaviour
         {
             FlyToWaypoint();
         }
+
+        */
+
+        if (!atWaypoint)
+        {
+            FlyToWaypoint2();
+
+        }
+
+        
+
+        if (!isTimeSet)
+        {
+            time = CarAtWaypointTime();
+            isTimeSet = true;
+            Debug.Log("Time is set: " + time);
+        }
+
+        if (isTimeSet)
+        {
+            if (time > 0)
+            {
+                time -= Time.deltaTime;
+                Debug.Log("Time remaining: " + time);
+            }
+            else
+            {
+               
+                Debug.Log("Drone is moving");
+                switch (currentShot)
+                {
+                    case 1:
+                        Drohnenshot1();
+                        break;
+                    case 2:
+                        Drohnenshot2();
+                        break;
+                    case 3:
+                        FollowCar();
+                        break;
+                    default:
+                        FollowCar();
+                        break;
+                }
+            }
+        }
+
 
     }
     public void SetShot(int shotNumber)
