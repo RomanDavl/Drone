@@ -31,7 +31,7 @@ public class DroneMovement : MonoBehaviour
     public float zoomSpeed = 5f;
 
     [SerializeField] private CarController auto;
-    private int currentShot = 1;
+    private int currentShot = 0;
     
     
 
@@ -71,10 +71,10 @@ public class DroneMovement : MonoBehaviour
                     Drohnenshot2();
                     break;
                 case 3:
-                    DrohnenshotAlt();
+                    FollowCar();
                     break;
                 default:
-                    Drohnenshot1();
+                    FollowCar();
                     break;
             }
         }
@@ -94,8 +94,9 @@ public class DroneMovement : MonoBehaviour
         {
             // Zielposition berechnen, die 10 Meter über dem Waypoint liegt
             Vector3 targetPosition = new Vector3(targetWaypoint.position.x, targetWaypoint.position.y + hoverHeight, targetWaypoint.position.z);
-
+            // Richtung zur Zielposition berechnen
             Vector3 direction = (targetPosition - transform.position).normalized;
+            //Drehung der drohne in richtung des zielpunkts
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, rotationSpeed * Time.deltaTime, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDirection);
 
