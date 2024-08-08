@@ -50,13 +50,17 @@ public class DroneMovement : MonoBehaviour
         waypoints = waypointContainer.waypoints;
         currentWaypoint = 0;
         waypointRange = 3f;
-        float total = waypointContainer.GetDistanceTotal();
-        Debug.Log(total);
-      
         isTimeSet = false;
+        float total = waypointContainer.GetDistanceTotal();
+        Debug.Log("Die Distanz der kompletten Strecke beträgt: " + total);
 
-        float distanceTillMeetingpoint = waypointContainer.GetDistanceBisDrohnenshot(waypointContainer.GetAllWaypointsUpToWaypoint(targetWaypoint));
-        Debug.Log(distanceTillMeetingpoint);
+        float distanceTillMeetingpoint = waypointContainer.GetDistanceOfList(waypointContainer.GetAllWaypointsUpToWaypoint(targetWaypoint));
+        Debug.Log("Die Distanz bis zum Treffpunkt beträgt: " + distanceTillMeetingpoint);
+
+        float distanceOfDrohenshot = waypointContainer.GetDistanceOfList(waypointContainer.GetAllWaypointsStartingAtWaypoint(targetWaypoint));
+        Debug.Log("Die Distanz des Drohnenshots beträgt: " + distanceOfDrohenshot);
+
+        DrohnenshotTime();
 
 
     }
@@ -115,7 +119,8 @@ public class DroneMovement : MonoBehaviour
             if (time > 0)
             {
                 time -= Time.deltaTime;
-                //Debug.Log("Time remaining: " + time);
+                //Debug.Log("Time remaining: " + time + " seconds");
+                
             }
             else
             {
@@ -151,21 +156,26 @@ public class DroneMovement : MonoBehaviour
     {
         float t;
 
-        float distanceTillMeetingpoint = waypointContainer.GetDistanceBisDrohnenshot(waypointContainer.GetAllWaypointsUpToWaypoint(targetWaypoint));
+        float distanceTillMeetingpoint = waypointContainer.GetDistanceOfList(waypointContainer.GetAllWaypointsUpToWaypoint(targetWaypoint));
         float speed = auto.MaxSpeed;
-        Debug.Log(distanceTillMeetingpoint);
-        t = distanceTillMeetingpoint / speed* 10;
-        //t = 15;
+        t = distanceTillMeetingpoint / (speed* 0.06f);
+        
 
         return t;
 
     }
 
+
     //gibt die Zeit aus wie lange der Drohnenshot dauert
     public float DrohnenshotTime()
     {
-        float drohnenshottime = 0;
+        float drohnenshottime;
 
+        float drohenshotdistance = waypointContainer.GetDistanceOfList(waypointContainer.GetAllWaypointsStartingAtWaypoint(targetWaypoint));
+
+        drohnenshottime = drohenshotdistance / 12;
+        
+        //Debug.Log("Die Zeit des Drohnenshots beträgt: " + drohnenshottime);
 
         return drohnenshottime;
 
@@ -211,7 +221,7 @@ public class DroneMovement : MonoBehaviour
             // Optional: Wenn die Drohne die Zielposition erreicht, könnte sie stoppen
             if (Vector3.Distance(transform.position, targetPosition) < 0.5f)
             {
-                Debug.Log("Drohne hat den Waypoint erreicht und schwebt darüber!");
+                //Debug.Log("Drohne hat den Waypoint erreicht und schwebt darüber!");
                 atWaypoint = true; ; // Stopp die Drohne 
                 return;
             }
@@ -229,7 +239,7 @@ public class DroneMovement : MonoBehaviour
             Vector3 direction = (targetPosition - transform.position).normalized;
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, rotationSpeed * Time.deltaTime, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDirection);
-            transform.position += direction * carFollowSpeed * Time.deltaTime;
+            transform.position += direction * 11 * Time.deltaTime;
 
             // Kamera soll stets auf das Auto gerichtet sein
             Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
@@ -253,7 +263,7 @@ public class DroneMovement : MonoBehaviour
 
         if (currentWaypoint < 4)
         {
-            target = new Vector3(waypoints[currentWaypoint].position.x + 50, hoverHeight, waypoints[currentWaypoint].position.z + 60);
+            target = new Vector3(waypoints[currentWaypoint].position.x + 50, hoverHeight, waypoints[currentWaypoint].position.z);
             //zooom += zoomSpeed * Time.deltaTime;
 
         }
@@ -263,14 +273,14 @@ public class DroneMovement : MonoBehaviour
 
             //zooom += zoomSpeed * Time.deltaTime;
         }
-        else if (currentWaypoint < 10)
+        else if (currentWaypoint < 12)
         {
             target = new Vector3(waypoints[currentWaypoint].position.x + 30, hoverHeight, waypoints[currentWaypoint].position.z + 50);
             //zooom += zoomSpeed * Time.deltaTime;
         }
         else
         {
-            target = new Vector3(waypoints[currentWaypoint].position.x + 10, hoverHeight, waypoints[currentWaypoint].position.z + 30);
+            target = new Vector3(waypoints[currentWaypoint].position.x + 10, hoverHeight, waypoints[currentWaypoint].position.z);
         }
 
 
@@ -279,7 +289,7 @@ public class DroneMovement : MonoBehaviour
         {
             
             Vector3 direction = (target - transform.position).normalized;
-            transform.position += direction * 15 * Time.deltaTime;
+            transform.position += direction * 13 * Time.deltaTime;
             Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
             Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
             cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
@@ -331,7 +341,7 @@ public class DroneMovement : MonoBehaviour
         {
             
             Vector3 direction = (target - transform.position).normalized;
-            transform.position += direction * 15 * Time.deltaTime;
+            transform.position += direction * 13 * Time.deltaTime;
             Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
             Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
             cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
@@ -343,145 +353,6 @@ public class DroneMovement : MonoBehaviour
         }
     }
 
-    
-
-
-    void DrohnenshotAlt()
-    {
-            if (currentWaypoint == 0)
-            {
-
-                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 60, hoverHeight, waypoints[currentWaypoint].transform.position.z + 60);
-
-                if (Vector3.Distance(target, transform.position) < waypointRange)
-
-                {
-                    currentWaypoint += 2;
-                }
-
-                Vector3 direction = (target - transform.position).normalized;
-                transform.position += direction * 15 * Time.deltaTime;
-
-            }
-
-            else if (currentWaypoint == 2)
-            {
-                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 60, hoverHeight, waypoints[currentWaypoint].transform.position.z + 60);
-
-                if (Vector3.Distance(target, transform.position) < waypointRange)
-
-                {
-                    currentWaypoint += 2;
-                }
-
-
-                Vector3 direction = (target - transform.position).normalized;
-                transform.position += direction * 15 * Time.deltaTime;
-
-            }
-
-            else if (currentWaypoint == 4)
-            {
-                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 50, hoverHeight, waypoints[currentWaypoint].transform.position.z + 60);
-
-
-                if (Vector3.Distance(target, transform.position) < waypointRange)
-
-                {
-                    currentWaypoint += 2;
-                }
-
-                Vector3 direction2 = (target - transform.position).normalized;
-                transform.position += direction2 * 15 * Time.deltaTime;
-
-            }
-
-            else if (currentWaypoint == 6)
-            {
-                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 50, hoverHeight, waypoints[currentWaypoint].transform.position.z + 60);
-
-
-                if (Vector3.Distance(target, transform.position) < waypointRange)
-
-                {
-                    currentWaypoint += 2;
-                }
-
-                Vector3 direction2 = (target - transform.position).normalized;
-                transform.position += direction2 * 15 * Time.deltaTime;
-
-            }
-
-            else if (currentWaypoint == 8)
-            {
-                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 50, hoverHeight, waypoints[currentWaypoint].transform.position.z + 50);
-
-
-                if (Vector3.Distance(target, transform.position) < waypointRange)
-
-                {
-                    currentWaypoint += 2;
-                }
-
-                Vector3 direction2 = (target - transform.position).normalized;
-                transform.position += direction2 * 15 * Time.deltaTime;
-
-            }
-
-            else if (currentWaypoint == 10)
-            {
-                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 30, hoverHeight, waypoints[currentWaypoint].transform.position.z + 30);
-
-
-                if (Vector3.Distance(target, transform.position) < waypointRange)
-
-                {
-                    //cameraTransform.rotation= new Quaternion (0, 0, 0,0);
-                    currentWaypoint += 2;
-                }
-
-                Vector3 direction2 = (target - transform.position).normalized;
-                transform.position += direction2 * 15 * Time.deltaTime;
-
-            }
-
-            else if (currentWaypoint == 12)
-            {
-                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 30, hoverHeight, waypoints[currentWaypoint].transform.position.z + 30);
-
-
-                if (Vector3.Distance(target, transform.position) < waypointRange)
-
-                {
-                    currentWaypoint += 2;
-                }
-
-                Vector3 direction2 = (target - transform.position).normalized;
-                transform.position += direction2 * 15 * Time.deltaTime;
-
-            }
-
-            else if (currentWaypoint == 14)
-            {
-                Vector3 target = new Vector3(waypoints[currentWaypoint].transform.position.x + 30, hoverHeight, waypoints[currentWaypoint].transform.position.z + 30);
-
-
-                if (Vector3.Distance(target, transform.position) < waypointRange)
-
-                {
-
-                }
-
-                Vector3 direction2 = (target - transform.position).normalized;
-                transform.position += direction2 * 15 * Time.deltaTime;
-
-            }
-
-
-
-
-            //Debug.DrawRay(transform.position, waypoints[currentWaypoint].position - transform.position, Color.yellow);
-    }
 
         void OnTriggerEnter(Collider other)
         {

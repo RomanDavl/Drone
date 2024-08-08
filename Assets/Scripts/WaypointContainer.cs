@@ -8,7 +8,6 @@ public class WaypointContainer : MonoBehaviour
     public List<Transform> waypoints = new List<Transform>();
     public List<Transform> waypointsToTarget = new List<Transform>();
     public float distanceTotal = 0;
-    public float distanceBisDrohnenshot = 0;
     private Transform prev = null;
     private float distance;
 
@@ -25,7 +24,7 @@ public class WaypointContainer : MonoBehaviour
         }
     }
 
-    //gesamte Strecke von Start bis Ende des Autos
+    //gesamte Strecke von Start bis Ende der Autostrecke
     public float GetDistanceTotal()
     {
         // Reset previous transform and total distance
@@ -48,12 +47,13 @@ public class WaypointContainer : MonoBehaviour
         return distanceTotal;
     }
 
-    // Strecke des Autos bis die Drohne das Auto trifft
-    public float GetDistanceBisDrohnenshot(List<Transform> list)
+    // Strecke einer Waypointliste
+    public float GetDistanceOfList (List<Transform> list)
     {
-        // Reset previous transform and partial distance
-        prev = null;
-        distanceBisDrohnenshot = 0;
+        
+        Transform prev = null;
+        float distanceOfList = 0;
+        float oneDistance = 0;
 
         for (int i = 0; i < list.Count; i++)
         {
@@ -63,17 +63,16 @@ public class WaypointContainer : MonoBehaviour
             }
             else
             {
-                distance = Vector3.Distance(prev.position, list[i].position);
-                distanceBisDrohnenshot += distance;
+                oneDistance = Vector3.Distance(prev.position, list[i].position);
+                distanceOfList += oneDistance;
                 prev = list[i];
                 //Debug.Log("One distance: " + distance);
             }
         }
 
-        
-
-        return distanceBisDrohnenshot;
+        return distanceOfList;
     }
+
 
     public List<Transform> GetWaypointUpToIndex(int index)
     {

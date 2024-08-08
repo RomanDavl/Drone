@@ -5200,7 +5200,6 @@ MonoBehaviour:
   waypoints: []
   waypointsToTarget: []
   distanceTotal: 0
-  distanceBisDrohnenshot: 0
 --- !u!1 &1345881554
 GameObject:
   m_ObjectHideFlags: 3
@@ -5602,7 +5601,6 @@ MonoBehaviour:
   waypoints: []
   waypointsToTarget: []
   distanceTotal: 0
-  distanceBisDrohnenshot: 0
 --- !u!1 &1477796033
 GameObject:
   m_ObjectHideFlags: 0
@@ -16806,7 +16804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca9058e23134a06478032b60f2b1a653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetWaypoint: {fileID: 435218328}
+  targetWaypoint: {fileID: 1515861673}
   speed: 15
   rotationSpeed: 2
   hoverHeight: 20
