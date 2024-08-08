@@ -115,7 +115,7 @@ public class DroneMovement : MonoBehaviour
             if (time > 0)
             {
                 time -= Time.deltaTime;
-                Debug.Log("Time remaining: " + time);
+                //Debug.Log("Time remaining: " + time);
             }
             else
             {
@@ -153,8 +153,8 @@ public class DroneMovement : MonoBehaviour
 
         float distanceTillMeetingpoint = waypointContainer.GetDistanceBisDrohnenshot(waypointContainer.GetAllWaypointsUpToWaypoint(targetWaypoint));
         float speed = auto.MaxSpeed;
-
-        t = distanceTillMeetingpoint / 10;
+        Debug.Log(distanceTillMeetingpoint);
+        t = distanceTillMeetingpoint / speed* 10;
         //t = 15;
 
         return t;
