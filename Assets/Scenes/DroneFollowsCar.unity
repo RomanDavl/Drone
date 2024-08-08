@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 47621098}
   - component: {fileID: 47621097}
   m_Layer: 0
-  m_Name: Sphere (16)
+  m_Name: Waypoint 14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -624,7 +624,7 @@ GameObject:
   - component: {fileID: 60177153}
   - component: {fileID: 60177152}
   m_Layer: 0
-  m_Name: Sphere (7)
+  m_Name: Waypoint 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -943,7 +943,7 @@ GameObject:
   - component: {fileID: 90723878}
   - component: {fileID: 90723877}
   m_Layer: 0
-  m_Name: Sphere (10)
+  m_Name: Waypoint 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1857,7 +1857,7 @@ GameObject:
   - component: {fileID: 315907412}
   - component: {fileID: 315907411}
   m_Layer: 0
-  m_Name: Sphere (8)
+  m_Name: Waypoint 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2475,7 +2475,7 @@ GameObject:
   - component: {fileID: 435218330}
   - component: {fileID: 435218329}
   m_Layer: 0
-  m_Name: Sphere (9)
+  m_Name: Waypoint 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2630,7 +2630,7 @@ GameObject:
   - component: {fileID: 480357958}
   - component: {fileID: 480357957}
   m_Layer: 0
-  m_Name: Sphere (11)
+  m_Name: Waypoint 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2713,7 +2713,7 @@ GameObject:
   - component: {fileID: 525109419}
   - component: {fileID: 525109418}
   m_Layer: 0
-  m_Name: Sphere (3)
+  m_Name: Waypoint 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2917,7 +2917,7 @@ GameObject:
   - component: {fileID: 548430106}
   - component: {fileID: 548430105}
   m_Layer: 0
-  m_Name: Sphere (14)
+  m_Name: Waypoint 12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3338,7 +3338,7 @@ GameObject:
   - component: {fileID: 688014378}
   - component: {fileID: 688014377}
   m_Layer: 0
-  m_Name: Sphere (15)
+  m_Name: Waypoint 13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4079,7 +4079,7 @@ GameObject:
   - component: {fileID: 816307593}
   - component: {fileID: 816307592}
   m_Layer: 0
-  m_Name: Sphere (13)
+  m_Name: Waypoint 11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4870,7 +4870,7 @@ GameObject:
   - component: {fileID: 1141423588}
   - component: {fileID: 1141423587}
   m_Layer: 0
-  m_Name: Sphere (6)
+  m_Name: Waypoint 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5893,7 +5893,7 @@ GameObject:
   - component: {fileID: 1515861675}
   - component: {fileID: 1515861674}
   m_Layer: 0
-  m_Name: Sphere (5)
+  m_Name: Waypoint 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6676,7 +6676,7 @@ GameObject:
   - component: {fileID: 1738289687}
   - component: {fileID: 1738289686}
   m_Layer: 0
-  m_Name: Sphere (4)
+  m_Name: Waypoint 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7208,7 +7208,7 @@ GameObject:
   - component: {fileID: 1813833329}
   - component: {fileID: 1813833328}
   m_Layer: 0
-  m_Name: Sphere (12)
+  m_Name: Waypoint 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16806,14 +16806,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca9058e23134a06478032b60f2b1a653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetWaypoint: {fileID: 1738289685}
+  targetWaypoint: {fileID: 435218328}
   speed: 15
   rotationSpeed: 2
   hoverHeight: 20
   carFollowSpeed: 5
+  carTarget: {fileID: 188351519}
   waypointContainer: {fileID: 1419126826}
   zoomSpeed: 5
-  auto: {fileID: 0}
+  auto: {fileID: 188351521}
 --- !u!54 &2693294497608263360
 Rigidbody:
   m_ObjectHideFlags: 0
