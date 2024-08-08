@@ -25,6 +25,7 @@ public class WaypointContainer : MonoBehaviour
         }
     }
 
+    //gesamte Strecke von Start bis Ende des Autos
     public float GetDistanceTotal()
     {
         // Reset previous transform and total distance
@@ -47,6 +48,7 @@ public class WaypointContainer : MonoBehaviour
         return distanceTotal;
     }
 
+    // Strecke des Autos bis die Drohne das Auto trifft
     public float GetDistanceBisDrohnenshot(List<Transform> list)
     {
         // Reset previous transform and partial distance
@@ -83,7 +85,70 @@ public class WaypointContainer : MonoBehaviour
         return list;
     }
 
-    
+    // alle Waypoints bis zum übergebenen Waypoint 
+    public List<Transform> GetAllWaypointsUpToWaypoint(Transform waypoint)
+    {
+        List<Transform> list = new List<Transform>();
+
+        Boolean atWaypoint = false;
+
+
+        foreach (Transform t in waypoints)
+        {
+            if (atWaypoint== false)
+            {
+                if (t == waypoint)
+                {
+                    list.Add(t);
+                    atWaypoint = true;
+                }
+                else
+                {
+                    list.Add(t);
+                }
+            }
+            else
+            {
+                break;
+            }        
+                
+        }
+        
+        return list;
+    }
+
+    // alle Waypoints ab dem übergebenen Waypoint 
+    public List<Transform> GetAllWaypointsStartingAtWaypoint(Transform waypoint)
+    {
+        List<Transform> list = new List<Transform>();
+
+        Boolean atWaypoint = false;
+
+
+        foreach (Transform t in waypoints)
+        {
+            if (atWaypoint == false)
+            {
+                if (t == waypoint)
+                {
+                    atWaypoint = true;
+                    list.Add(t);
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            else
+            {
+                list.Add(t);
+            }
+
+        }
+
+        return list;
+    }
+
 }
 
 
