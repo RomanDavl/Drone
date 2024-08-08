@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -119,13 +120,15 @@ public class DroneMovement : MonoBehaviour
             if (time > 0)
             {
                 time -= Time.deltaTime;
-                //Debug.Log("Time remaining: " + time + " seconds");
+                Debug.Log("Time remaining: " + time + " seconds");
                 
             }
             else
             {
                
                 Debug.Log("Drone is moving");
+                
+                
                 switch (currentShot)
                 {
                     case 1:
@@ -141,6 +144,7 @@ public class DroneMovement : MonoBehaviour
                         FollowCar();
                         break;
                 }
+                
             }
         }
 
@@ -353,8 +357,55 @@ public class DroneMovement : MonoBehaviour
         }
     }
 
+    void Drohnenshot3()
+    {
+        if (currentWaypoint >= waypoints.Count)
+        {
+            // Wenn alle Waypoints erreicht sind, kann die Funktion beendet werden
+            return;
+        }
 
-        void OnTriggerEnter(Collider other)
+        // Berechne das Ziel basierend auf dem aktuellen Waypoint
+        Vector3 target;
+
+        if (currentWaypoint < 5)
+        {
+            target = new Vector3(waypoints[7].position.x + 200, hoverHeight + 100, waypoints[7].position.z - 60);
+            //zooom += zoomSpeed * Time.deltaTime;
+
+        }
+        else if (currentWaypoint < 9)
+        {
+            target = new Vector3(waypoints[10].position.x, hoverHeight + 50, waypoints[10].position.z - 70);
+
+            //zooom += zoomSpeed * Time.deltaTime;
+        }
+        
+        else
+        {
+            target = new Vector3(waypoints[5].position.x -100, hoverHeight +200, waypoints[5].position.z - 10);
+        }
+
+
+        // Bewege das Objekt nur, wenn es noch nicht nahe genug am Ziel ist
+        if (Vector3.Distance(target, transform.position) > waypointRange)
+        {
+
+            Vector3 direction = (target - transform.position).normalized;
+            transform.position += direction * 18 * Time.deltaTime;
+            Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
+            Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
+            cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
+        }
+        else
+        {
+            // Erhöhe den aktuellen Waypoint, wenn das Ziel erreicht ist
+            currentWaypoint += 1;
+        }
+    }
+
+
+    void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Car"))
             {
@@ -364,4 +415,7 @@ public class DroneMovement : MonoBehaviour
         }
 
     
+
+
+
 }
