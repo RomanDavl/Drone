@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -32,8 +33,12 @@ public class DroneMovement : MonoBehaviour
 
     [SerializeField] private CarController auto;
     private int currentShot = 0;
-    
-    
+
+    float time;
+    Boolean isTimeSet;
+    Boolean atWaypoint = false;
+
+
 
 
     void Start()
@@ -48,6 +53,7 @@ public class DroneMovement : MonoBehaviour
         Debug.Log(total);
         float total2 = waypointContainer.GetDistanceBisDrohnenshot(waypointContainer.GetWaypointUpToIndex(4));
         Debug.Log(total2);
+        isTimeSet = false;
 
     }
 
@@ -82,11 +88,38 @@ public class DroneMovement : MonoBehaviour
         {
             FlyToWaypoint();
         }
+
     }
     public void SetShot(int shotNumber)
     {
         currentShot = shotNumber;
     }
+
+    // gibt die Zeit aus wie lange das Auto braucht, um am Waypoint zu sein, ab wann die Drohne das Auto verfolgt
+    public float CarAtWaypointTime()
+    {
+        float t;
+
+        float distanceTillMeetingpoint = waypointContainer.GetDistanceBisDrohnenshot(waypointContainer.GetAllWaypointsUpToWaypoint(targetWaypoint));
+        float speed = auto.MaxSpeed;
+
+        t = distanceTillMeetingpoint / 10;
+        //t = 15;
+
+        return t;
+
+    }
+
+    //gibt die Zeit aus wie lange der Drohnenshot dauert
+    public float DrohnenshotTime()
+    {
+        float drohnenshottime = 0;
+
+
+        return drohnenshottime;
+
+    }
+
 
     void FlyToWaypoint()
     {
@@ -110,6 +143,30 @@ public class DroneMovement : MonoBehaviour
             }
         }
     }
+
+    void FlyToWaypoint2()
+    {
+        if (targetWaypoint != null)
+        {
+            // Zielposition berechnen, die 10 Meter über dem Waypoint liegt
+            Vector3 targetPosition = new Vector3(targetWaypoint.position.x, targetWaypoint.position.y + hoverHeight, targetWaypoint.position.z + 60);
+
+            Vector3 direction = (targetPosition - transform.position).normalized;
+            //Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, rotationSpeed * Time.deltaTime, 0.0f);
+            //transform.rotation = Quaternion.LookRotation(targetWaypoint.position);
+
+            transform.position += direction * 50 * Time.deltaTime;
+
+            // Optional: Wenn die Drohne die Zielposition erreicht, könnte sie stoppen
+            if (Vector3.Distance(transform.position, targetPosition) < 0.5f)
+            {
+                Debug.Log("Drohne hat den Waypoint erreicht und schwebt darüber!");
+                atWaypoint = true; ; // Stopp die Drohne 
+                return;
+            }
+        }
+    }
+
 
     void FollowCar()
     {
