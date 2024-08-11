@@ -138,7 +138,7 @@ public class DroneMovement : MonoBehaviour
                         Drohnenshot2();
                         break;
                     case 3:
-                        FollowCar();
+                        FollowCarDrohnenshot();
                         break;
                     default:
                         FollowCar();
@@ -249,6 +249,64 @@ public class DroneMovement : MonoBehaviour
             Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
             Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
             cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
+        }
+    }
+
+    void FollowCarDrohnenshot()
+    {
+        if (currentWaypoint >= waypoints.Count)
+        {
+            // Wenn alle Waypoints erreicht sind, kann die Funktion beendet werden
+            return;
+        }
+
+        // Berechne das Ziel basierend auf dem aktuellen Waypoint
+        Vector3 target;
+
+        if (currentWaypoint < 4)
+        {
+            if (currentWaypoint < 2)
+            {
+                target = new Vector3(waypoints[currentWaypoint+1].position.x, hoverHeight, waypoints[currentWaypoint+1].position.z);
+            }
+            else
+            {
+                target = new Vector3(waypoints[currentWaypoint].position.x, hoverHeight, waypoints[currentWaypoint].position.z);
+                //zooom += zoomSpeed * Time.deltaTime;
+            }
+
+        }
+        else if (currentWaypoint < 8)
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x , hoverHeight, waypoints[currentWaypoint].position.z );
+
+            //zooom += zoomSpeed * Time.deltaTime;
+        }
+        else if (currentWaypoint < 12)
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x , hoverHeight, waypoints[currentWaypoint].position.z);
+            //zooom += zoomSpeed * Time.deltaTime;
+        }
+        else
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x , hoverHeight, waypoints[currentWaypoint].position.z);
+        }
+
+
+        // Bewege das Objekt nur, wenn es noch nicht nahe genug am Ziel ist
+        if (Vector3.Distance(target, transform.position) > waypointRange)
+        {
+
+            Vector3 direction = (target - transform.position).normalized;
+            transform.position += direction * 12 * Time.deltaTime;
+            Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
+            Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
+            cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
+        }
+        else
+        {
+            // Erhöhe den aktuellen Waypoint, wenn das Ziel erreicht ist
+            currentWaypoint += 1;
         }
     }
 
