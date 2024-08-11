@@ -6,8 +6,9 @@ using UnityEngine.InputSystem.XR;
 public class AICarController : MonoBehaviour
 {
     [SerializeField] private WaypointContainer waypointContainer;
-    private List<Transform> waypoints;
-    private int currentWaypoint;
+    
+    public List<Transform> waypoints;
+    public int currentWaypoint;
     private CarController carController;
     private float waypointRange;
     private float currentAngle;
@@ -29,8 +30,10 @@ public class AICarController : MonoBehaviour
         if (Vector3.Distance(waypoints[currentWaypoint].position, transform.position) < waypointRange)
         {
             currentWaypoint++;
-            if (currentWaypoint == waypoints.Count)
-                currentWaypoint = 0;
+            if (currentWaypoint >= waypoints.Count)
+                currentWaypoint = waypoints.Count - 1;
+                return;
+            
         }
 
         Vector3 forward = transform.TransformDirection(Vector3.forward);
@@ -48,8 +51,11 @@ public class AICarController : MonoBehaviour
             carController.Speed = carController.MaxSpeed;
         }
 
+
         //carController.SetInput(gasInput, currentAngle);
-       
+
         //Debug.DrawRay(transform.position, waypoints[currentWaypoint].position - transform.position, Color.yellow);
     }
+
+    
 }

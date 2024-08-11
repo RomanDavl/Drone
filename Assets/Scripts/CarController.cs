@@ -123,7 +123,7 @@ public class CarController : MonoBehaviour
         Quaternion rotation;
         col.GetWorldPose(out position, out rotation);
 
-        trans.position = position;
+        //trans.position = position;
 
         trans.rotation = rotation;
     }
