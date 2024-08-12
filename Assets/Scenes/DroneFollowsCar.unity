@@ -5101,7 +5101,7 @@ MonoBehaviour:
   _maximumScreenSpaceError: 40
   _preloadAncestors: 1
   _preloadSiblings: 1
-  _forbidHoles: 0
+  _forbidHoles: 1
   _maximumSimultaneousTileLoads: 1000
   _maximumCachedBytes: 536870912
   _loadingDescendantLimit: 20
@@ -6741,7 +6741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 1487051601}
-  m_PathPosition: 11.934
+  m_PathPosition: 12.05379
   m_PositionUnits: 0
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
@@ -6842,8 +6842,8 @@ Transform:
   m_GameObject: {fileID: 1354834215}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.5627327, z: 0, w: 0.82663894}
-  m_LocalPosition: {x: 1954.1, y: -8.82, z: -422.72}
-  m_LocalScale: {x: 0.91, y: 1, z: 0.27}
+  m_LocalPosition: {x: 1948.6, y: -8.82, z: -421.31}
+  m_LocalScale: {x: -1.46, y: 1, z: 0.69}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

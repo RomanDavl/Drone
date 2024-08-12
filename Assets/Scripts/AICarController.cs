@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
 
 [RequireComponent(typeof(CarController))]
 public class AICarController : MonoBehaviour
 {
     [SerializeField] private WaypointContainer waypointContainer;
-    
+
     public List<Transform> waypoints;
     public int currentWaypoint;
     private CarController carController;
@@ -27,22 +26,31 @@ public class AICarController : MonoBehaviour
 
     void Update()
     {
-        if (Vector3.Distance(waypoints[currentWaypoint].position, transform.position) < waypointRange)
+        if (currentWaypoint >= waypoints.Count || Vector3.Distance(waypoints[currentWaypoint].position, transform.position) < waypointRange)
         {
-            currentWaypoint++;
             if (currentWaypoint >= waypoints.Count)
-                currentWaypoint = waypoints.Count - 1;
+            {
+                gasInput = 0;
+                currentAngle = 0;
+                carController.SetInput(gasInput, currentAngle);
+                Debug.Log("before stop" + transform.name + ": " + currentWaypoint + ", " + waypoints.Count + ", " + currentAngle);
                 return;
-            
+            }
+
+            if (currentWaypoint != waypoints.Count - 1)
+            {
+                currentWaypoint++;
+            }
         }
 
+        Debug.Log("after stop" + transform.name + ": " + currentWaypoint + ", " + waypoints.Count + ", " + currentAngle);
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         currentAngle = Vector3.SignedAngle(forward, waypoints[currentWaypoint].position - transform.position, Vector3.up);
 
         gasInput = Mathf.Clamp01(maxAngle - Mathf.Abs(carController.Speed * 0.02f * currentAngle) / maxAngle);
 
         carController.MaxSpeed = isInsideBraking ? 40f : 80f;
-        
+
 
         carController.SetInput(gasInput, currentAngle);
 
@@ -51,11 +59,21 @@ public class AICarController : MonoBehaviour
             carController.Speed = carController.MaxSpeed;
         }
 
+        if (carController.Speed <= 5 && gasInput > 0)
+        {
+            Rigidbody rb = carController.GetComponent<Rigidbody>();
+            rb.AddForce(Vector3.up * 200f, ForceMode.Impulse);
+        }
 
         //carController.SetInput(gasInput, currentAngle);
 
-        //Debug.DrawRay(transform.position, waypoints[currentWaypoint].position - transform.position, Color.yellow);
+        Debug.DrawRay(transform.position, waypoints[currentWaypoint].position - transform.position, Color.yellow);
+
+        if (currentWaypoint == waypoints.Count - 1)
+        {
+            currentWaypoint++;
+        }
     }
 
-    
+
 }
