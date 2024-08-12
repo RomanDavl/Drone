@@ -75,7 +75,7 @@ public class DroneMovement : MonoBehaviour
 
         if (!atWaypoint)
         {
-            FlyToWaypoint2();
+            FlyToWaypointWithTimer();
 
         }
 
@@ -144,7 +144,7 @@ public class DroneMovement : MonoBehaviour
         }
         else
         {
-            FlyToWaypoint();
+            FlyToWaypointWithoutTimer();
         }
 
         }
@@ -161,14 +161,24 @@ public class DroneMovement : MonoBehaviour
     // gibt die Zeit aus wie lange das Auto braucht, um am Waypoint zu sein, ab wann die Drohne das Auto verfolgt
     public float CarAtWaypointTime()
     {
-        float t;
+
+        float time = 10; // time ist auf 10 Sekunden gestellt, da das Auto noch beschleunigen muss
 
         float distanceTillMeetingpoint = waypointContainer.GetDistanceOfList(waypointContainer.GetAllWaypointsUpToWaypoint(targetWaypoint));
         float speed = auto.MaxSpeed;
-        t = distanceTillMeetingpoint / (speed* 0.06f);
+
+        if (distanceTillMeetingpoint ==0)
+        {
+            time += 0;
+        }
+        else
+        {
+            time += distanceTillMeetingpoint / (speed * 0.125f);
+        }
+        
         
 
-        return t;
+        return time;
 
     }
 
@@ -189,7 +199,7 @@ public class DroneMovement : MonoBehaviour
     }
 
 
-    void FlyToWaypoint()
+    void FlyToWaypointWithoutTimer()
     {
         if (targetWaypoint != null)
         {
@@ -212,7 +222,7 @@ public class DroneMovement : MonoBehaviour
         }
     }
 
-    void FlyToWaypoint2()
+    void FlyToWaypointWithTimer()
     {
         if (targetWaypoint != null)
         {

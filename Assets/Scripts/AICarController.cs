@@ -33,7 +33,7 @@ public class AICarController : MonoBehaviour
                 gasInput = 0;
                 currentAngle = 0;
                 carController.SetInput(gasInput, currentAngle);
-                Debug.Log("before stop" + transform.name + ": " + currentWaypoint + ", " + waypoints.Count + ", " + currentAngle);
+                //Debug.Log("before stop" + transform.name + ": " + currentWaypoint + ", " + waypoints.Count + ", " + currentAngle);
                 return;
             }
 
@@ -43,7 +43,7 @@ public class AICarController : MonoBehaviour
             }
         }
 
-        Debug.Log("after stop" + transform.name + ": " + currentWaypoint + ", " + waypoints.Count + ", " + currentAngle);
+        //Debug.Log("after stop" + transform.name + ": " + currentWaypoint + ", " + waypoints.Count + ", " + currentAngle);
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         currentAngle = Vector3.SignedAngle(forward, waypoints[currentWaypoint].position - transform.position, Vector3.up);
 
