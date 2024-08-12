@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class PauseScript : MonoBehaviour
 {
     public GameObject pauseText;
     public Button pauseButton;
     public Button resumeButton;
+
+    public Button TimerButton;
 
     public Button Drohnenshot1;
 
@@ -20,6 +23,8 @@ public class PauseScript : MonoBehaviour
     public GameObject shotButtonsPanel;// Parent object von den shot buttons
     private bool isPaused = false;
     private int selectedShot = 1;
+
+    private bool timer = true;
 
     void Start()
     {
@@ -45,6 +50,13 @@ public class PauseScript : MonoBehaviour
         {
             shotButtonsPanel.SetActive(false);
         }
+        if (TimerButton != null){
+            TimerButton.gameObject.SetActive(false);
+            TimerButton.onClick.AddListener(ChangeColor);
+            TimerButton.GetComponent<Image>().color = Color.green;
+            
+        }
+
 
         
     }
@@ -89,6 +101,9 @@ public class PauseScript : MonoBehaviour
             Drohnenshot2.gameObject.SetActive(true);
             Drohnenshot3.gameObject.SetActive(true);
         }
+        if(TimerButton!=null){
+            TimerButton.gameObject.SetActive(true);
+        }
 
         isPaused = true;
     }
@@ -107,6 +122,9 @@ public class PauseScript : MonoBehaviour
             Drohnenshot2.gameObject.SetActive(false);
             Drohnenshot3.gameObject.SetActive(false);
         }
+        if(TimerButton!=null){
+            TimerButton.gameObject.SetActive(false);
+        }
         isPaused = false;
     }
     private void UpdateButtonVisibility()
@@ -122,6 +140,9 @@ public class PauseScript : MonoBehaviour
             Drohnenshot2.gameObject.SetActive(isPaused);
             Drohnenshot3.gameObject.SetActive(isPaused);
         }
+        if (TimerButton!= null){
+            TimerButton.gameObject.SetActive(isPaused);
+        }
     }
      private void SelectShot(int shotNumber)
     {
@@ -134,6 +155,7 @@ public class PauseScript : MonoBehaviour
         Drohnenshot1.GetComponent<Image>().color = Color.white;
         Drohnenshot2.GetComponent<Image>().color = Color.white;
         Drohnenshot3.GetComponent<Image>().color = Color.white;
+        
 
         // Highlight the selected button
         switch (selectedShot)
@@ -148,6 +170,8 @@ public class PauseScript : MonoBehaviour
                 Drohnenshot3.GetComponent<Image>().color = Color.green;
                 break;
         }
+        
+        
     }
      private void SelectShot1()
     {
@@ -162,5 +186,30 @@ public class PauseScript : MonoBehaviour
     private void SelectShot3()
     {
         SelectShot(3);
+    }
+    private void ChangeColor()
+    {
+       UpdateButtonColorsTimer();
+    }
+
+    private void UpdateButtonColorsTimer()
+
+    {
+        
+        if(timer==false){
+            TimerButton.GetComponent<Image>().color = Color.green;
+            timer = true;
+            //Setzt den TimerButton in der DrohneMovementklasse auf false
+            FindObjectOfType<DroneMovement>().SetTimerButton(true);
+            
+
+
+        }
+        else{
+           TimerButton.GetComponent<Image>().color = Color.white; 
+           timer = false;
+           // gleiche nur auf true
+           FindObjectOfType<DroneMovement>().SetTimerButton(false);
+    }
     }
 }
