@@ -40,6 +40,8 @@ public class DroneMovement : MonoBehaviour
     Boolean isTimeSet;
     Boolean atWaypoint = false;
 
+    Boolean timerButton = true;
+
 
 
 
@@ -68,37 +70,8 @@ public class DroneMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        /*
-        if (!followCar && targetWaypoint == null)
-        {
-            Debug.LogError("Target Waypoint is not set.");
-            return;
-        }
 
-        if (followCar)
-        {
-            switch (currentShot)
-            {
-                case 1:
-                    Drohnenshot1();
-                    break;
-                case 2:
-                    Drohnenshot2();
-                    break;
-                case 3:
-                    FollowCar();
-                    break;
-                default:
-                    FollowCar();
-                    break;
-            }
-        }
-        else
-        {
-            FlyToWaypoint();
-        }
-
-        */
+        if(timerButton){
 
         if (!atWaypoint)
         {
@@ -147,12 +120,42 @@ public class DroneMovement : MonoBehaviour
                 
             }
         }
+        }
+        else{
+          
+
+        if (followCar)
+        {
+            switch (currentShot)
+            {
+                case 1:
+                    Drohnenshot1();
+                    break;
+                case 2:
+                    Drohnenshot2();
+                    break;
+                case 3:
+                    FollowCarDrohnenshot();
+                    break;
+                default:
+                    FollowCar();
+                    break;
+            }
+        }
+        else
+        {
+            FlyToWaypoint();
+        }
+
+        }
 
 
     }
-    public void SetShot(int shotNumber)
-    {
+    public void SetShot(int shotNumber){
         currentShot = shotNumber;
+    }
+    public void SetTimerButton(Boolean timer){
+        timerButton=timer;
     }
 
     // gibt die Zeit aus wie lange das Auto braucht, um am Waypoint zu sein, ab wann die Drohne das Auto verfolgt
