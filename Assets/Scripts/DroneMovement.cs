@@ -111,6 +111,9 @@ public class DroneMovement : MonoBehaviour
                         Drohnenshot2();
                         break;
                     case 3:
+                        Drohnenshot3();
+                        break;
+                    case 4:
                         FollowCarDrohnenshot();
                         break;
                     default:
@@ -135,6 +138,9 @@ public class DroneMovement : MonoBehaviour
                     Drohnenshot2();
                     break;
                 case 3:
+                    Drohnenshot3();
+                    break;
+                case 4:
                     FollowCarDrohnenshot();
                     break;
                 default:
