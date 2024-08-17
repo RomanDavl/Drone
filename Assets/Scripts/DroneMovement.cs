@@ -51,6 +51,7 @@ public class DroneMovement : MonoBehaviour
 
 
 
+
     void Start()
     {
         // Findet die Hauptkamera, die als Kind der Drohne angehängt ist
@@ -71,13 +72,14 @@ public class DroneMovement : MonoBehaviour
         Debug.Log("Die Distanz des Drohnenshots beträgt: " + distanceOfDrohenshot);
 
         DrohnenshotTime();
+        
 
         fliegeZumAnderenOrt = true;
         angekommen = false;
 
         if(Tesla==false){
              transform.position = teleportPosition;
-             Debug.Log("Das Objekt wurde teleportiert.");
+            Debug.Log("Das Objekt wurde teleportiert.");
         }
         else
         {
@@ -118,7 +120,8 @@ public class DroneMovement : MonoBehaviour
 
             if (timerButton)
             {
-
+                
+      
                 if (!atWaypoint)
                 {
                     FlyToWaypointWithTimer();
@@ -139,13 +142,13 @@ public class DroneMovement : MonoBehaviour
                     if (time > 0)
                     {
                         time -= Time.deltaTime;
-                        Debug.Log("Time remaining: " + time + " seconds");
+                        //Debug.Log("Time remaining: " + time + " seconds");
 
                     }
                     else
                     {
 
-                        Debug.Log("Drone is moving");
+                        //Debug.Log("Drone is moving");
 
 
                         switch (currentShot)
@@ -216,8 +219,17 @@ public class DroneMovement : MonoBehaviour
     // gibt die Zeit aus wie lange das Auto braucht, um am Waypoint zu sein, ab wann die Drohne das Auto verfolgt
     public float CarAtWaypointTime()
     {
+        float time;
 
-        float time = 10; // time ist auf 10 Sekunden gestellt, da das Auto noch beschleunigen muss
+        if (Tesla== true)
+        {
+            time = 10; // time ist auf 10 Sekunden gestellt, da das Auto noch beschleunigen muss
+        }
+        else
+        {
+            time = 0;
+        }
+        
 
         float distanceTillMeetingpoint = waypointContainer.GetDistanceOfList(waypointContainer.GetAllWaypointsUpToWaypoint(targetWaypoint));
         float speed = auto.MaxSpeed;
@@ -281,12 +293,21 @@ public class DroneMovement : MonoBehaviour
     {
         if (targetWaypoint != null)
         {
-            // Zielposition berechnen, die 10 Meter über dem Waypoint liegt
-            Vector3 targetPosition = new Vector3(targetWaypoint.position.x, targetWaypoint.position.y + hoverHeight, targetWaypoint.position.z + 60);
+            Vector3 targetPosition;
+
+            if (Tesla == true)
+            {
+                 targetPosition = new Vector3(targetWaypoint.position.x, targetWaypoint.position.y + hoverHeight, targetWaypoint.position.z + 60);
+            }
+            else
+            {
+                targetPosition = new Vector3(targetWaypoint.position.x +10, targetWaypoint.position.y + hoverHeight, targetWaypoint.position.z +40);
+            }
+            
 
             Vector3 direction = (targetPosition - transform.position).normalized;
-            //Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, rotationSpeed * Time.deltaTime, 0.0f);
-            //transform.rotation = Quaternion.LookRotation(targetWaypoint.position);
+            
+            
 
             transform.position += direction * 50 * Time.deltaTime;
 
@@ -294,10 +315,74 @@ public class DroneMovement : MonoBehaviour
             if (Vector3.Distance(transform.position, targetPosition) < 0.5f)
             {
                 //Debug.Log("Drohne hat den Waypoint erreicht und schwebt darüber!");
-                atWaypoint = true; ; // Stopp die Drohne 
+                atWaypoint = true; // Stopp die Drohne 
                 return;
             }
         }
+    }
+
+    float GetXDirection()
+    {
+        float factor;
+        float directionX;
+
+        if (currentWaypoint+1 < waypoints.Count)
+        {
+            directionX = waypoints[currentWaypoint + 1].position.x - waypoints[currentWaypoint].position.x;
+        }
+        else
+        {
+            directionX = 0;
+        }
+        
+        if (directionX > 0)
+        {
+            factor = 1;
+        }
+        else if (directionX < 0)
+        {
+            factor = -1;
+        }
+        else
+        {
+            factor = 0;
+        }
+        //Debug.Log("directionX: " + directionX);
+        
+
+        return factor;
+    }
+
+    float GetZDirection()
+    {
+        float factor;
+        float directionZ;
+
+        if (currentWaypoint + 1 < waypoints.Count)
+        {
+            directionZ = waypoints[currentWaypoint + 1].position.z - waypoints[currentWaypoint].position.z;
+        }
+        else
+        {
+            directionZ = 0;
+        }
+
+        if (directionZ > 0)
+        {
+            factor = 1;
+        }
+        else if (directionZ < 0)
+        {
+            factor = -1;
+        }
+        else
+        {
+            factor = 0;
+        }
+        //Debug.Log("directionZ: " + directionZ);
+
+
+        return factor;
     }
 
 
@@ -382,53 +467,62 @@ public class DroneMovement : MonoBehaviour
 
     void Drohnenshot1()
     {
+
         if (currentWaypoint >= waypoints.Count)
         {
-            // Wenn alle Waypoints erreicht sind, kann die Funktion beendet werden
             return;
         }
-
-        // Berechne das Ziel basierend auf dem aktuellen Waypoint
-        Vector3 target;
-
-        if (currentWaypoint < 4)
-        {
-            target = new Vector3(waypoints[currentWaypoint].position.x + 50, hoverHeight, waypoints[currentWaypoint].position.z);
-            //zooom += zoomSpeed * Time.deltaTime;
-
-        }
-        else if (currentWaypoint < 8)
-        {
-            target = new Vector3(waypoints[currentWaypoint].position.x + 40, hoverHeight, waypoints[currentWaypoint].position.z + 60);
-
-            //zooom += zoomSpeed * Time.deltaTime;
-        }
-        else if (currentWaypoint < 12)
-        {
-            target = new Vector3(waypoints[currentWaypoint].position.x + 30, hoverHeight, waypoints[currentWaypoint].position.z + 50);
-            //zooom += zoomSpeed * Time.deltaTime;
-        }
         else
         {
-            target = new Vector3(waypoints[currentWaypoint].position.x + 10, hoverHeight, waypoints[currentWaypoint].position.z);
-        }
+
+            // Berechne das Ziel basierend auf dem aktuellen Waypoint
+            Vector3 target;
+
+            if (currentWaypoint < 5)
+            {
+
+                target = new Vector3(waypoints[currentWaypoint].position.x + GetXDirection() * 20, hoverHeight, waypoints[currentWaypoint].position.z);
+                //zooom += zoomSpeed * Time.deltaTime;
+
+            }
+            else if (currentWaypoint < 10)
+            {
+
+                target = new Vector3(waypoints[currentWaypoint].position.x + GetXDirection() * 50, hoverHeight, waypoints[currentWaypoint].position.z);
+                //zooom += zoomSpeed * Time.deltaTime;
+
+            }
+            else if (currentWaypoint < 15)
+            {
+
+                target = new Vector3(waypoints[currentWaypoint].position.x + GetXDirection() * 40, hoverHeight, waypoints[currentWaypoint].position.z);
+                //zooom += zoomSpeed * Time.deltaTime;
+
+            }
+            else
+            {
+                target = new Vector3(waypoints[currentWaypoint].position.x + GetXDirection() * 10, hoverHeight, waypoints[currentWaypoint].position.z);
+            }
 
 
-        // Bewege das Objekt nur, wenn es noch nicht nahe genug am Ziel ist
-        if (Vector3.Distance(target, transform.position) > waypointRange)
-        {
-            
-            Vector3 direction = (target - transform.position).normalized;
-            transform.position += direction * 13 * Time.deltaTime;
-            Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
-            Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
-            cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
+            // Bewege das Objekt nur, wenn es noch nicht nahe genug am Ziel ist
+            if (Vector3.Distance(target, transform.position) > waypointRange)
+            {
+
+                Vector3 direction = (target - transform.position).normalized;
+                transform.position += direction * 13 * Time.deltaTime;
+                Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
+                Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
+                cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
+            }
+            else
+            {
+                // Erhöhe den aktuellen Waypoint, wenn das Ziel erreicht ist
+                currentWaypoint += 1;
+            }
+
         }
-        else
-        {
-            // Erhöhe den aktuellen Waypoint, wenn das Ziel erreicht ist
-            currentWaypoint += 1;
-        }
+
 
     }
 
@@ -443,26 +537,26 @@ public class DroneMovement : MonoBehaviour
         // Berechne das Ziel basierend auf dem aktuellen Waypoint
         Vector3 target;
 
-        if (currentWaypoint < 4)
+        if (currentWaypoint < 5)
         {
-            target = new Vector3(waypoints[currentWaypoint].position.x + 50, hoverHeight+50, waypoints[currentWaypoint].position.z - 80);
+            target = new Vector3(waypoints[currentWaypoint].position.x, hoverHeight+50, waypoints[currentWaypoint].position.z + GetZDirection()*  40);
             //zooom += zoomSpeed * Time.deltaTime;
 
         }
-        else if (currentWaypoint < 8)
+        else if (currentWaypoint < 10)
         {
-            target = new Vector3(waypoints[currentWaypoint].position.x + 40, hoverHeight+40, waypoints[currentWaypoint].position.z - 70);
-
+            target = new Vector3(waypoints[currentWaypoint].position.x, hoverHeight+60, waypoints[currentWaypoint].position.z + GetZDirection() * 60);
+            
             //zooom += zoomSpeed * Time.deltaTime;
         }
-        else if (currentWaypoint < 12)
+        else if (currentWaypoint < 15)
         {
-            target = new Vector3(waypoints[currentWaypoint].position.x + 30, hoverHeight, waypoints[currentWaypoint].position.z - 60);
+            target = new Vector3(waypoints[currentWaypoint].position.x, hoverHeight+10, waypoints[currentWaypoint].position.z + GetZDirection() * 20);
             //zooom += zoomSpeed * Time.deltaTime;
         }
         else
         {
-            target = new Vector3(waypoints[currentWaypoint].position.x + 10, hoverHeight-20, waypoints[currentWaypoint].position.z -20);
+            target = new Vector3(waypoints[currentWaypoint].position.x , hoverHeight+30, waypoints[currentWaypoint].position.z + GetZDirection() * 30);
         }
 
 
@@ -471,7 +565,7 @@ public class DroneMovement : MonoBehaviour
         {
             
             Vector3 direction = (target - transform.position).normalized;
-            transform.position += direction * 13 * Time.deltaTime;
+            transform.position += direction * 12 * Time.deltaTime;
             Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
             Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
             cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
@@ -482,6 +576,7 @@ public class DroneMovement : MonoBehaviour
             currentWaypoint += 1;
         }
     }
+
 
     void Drohnenshot3()
     {
