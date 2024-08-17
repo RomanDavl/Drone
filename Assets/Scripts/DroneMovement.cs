@@ -44,6 +44,10 @@ public class DroneMovement : MonoBehaviour
     Boolean fliegeZumAnderenOrt;
     Boolean angekommen;
 
+    public Boolean Tesla = true;
+
+     public Vector3 teleportPosition = new Vector3(1928.26f, 40f, -468.6f);
+
 
 
 
@@ -70,12 +74,21 @@ public class DroneMovement : MonoBehaviour
         fliegeZumAnderenOrt = true;
         angekommen = false;
 
+        if(Tesla==false){
+             transform.position = teleportPosition;
+             Debug.Log("Das Objekt wurde teleportiert.");
+        }
+        else
+        {
+            Debug.Log("Das Objekt wurde nicht teleportiert.");
+        }
+
 
     }
 
     void FixedUpdate()
     {
-        if (fliegeZumAnderenOrt == true)
+        /*if (fliegeZumAnderenOrt == true)
         {
 
             if (angekommen == false)
@@ -99,7 +112,7 @@ public class DroneMovement : MonoBehaviour
             }
 
         }
-        else
+        else*/
         {
 
             if (timerButton)
