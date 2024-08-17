@@ -41,6 +41,8 @@ public class DroneMovement : MonoBehaviour
     Boolean atWaypoint = false;
 
     Boolean timerButton = true;
+    Boolean fliegeZumAnderenOrt;
+    Boolean angekommen;
 
 
 
@@ -65,93 +67,126 @@ public class DroneMovement : MonoBehaviour
 
         DrohnenshotTime();
 
+        fliegeZumAnderenOrt = true;
+        angekommen = false;
+
 
     }
 
     void FixedUpdate()
     {
-
-        if(timerButton){
-
-        if (!atWaypoint)
+        if (fliegeZumAnderenOrt == true)
         {
-            FlyToWaypointWithTimer();
 
-        }
-
-        
-
-        if (!isTimeSet)
-        {
-            time = CarAtWaypointTime();
-            isTimeSet = true;
-            Debug.Log("Time is set: " + time);
-        }
-
-        if (isTimeSet)
-        {
-            if (time > 0)
+            if (angekommen == false)
             {
-                time -= Time.deltaTime;
-                Debug.Log("Time remaining: " + time + " seconds");
-                
-            }
-            else
-            {
-               
-                Debug.Log("Drone is moving");
-                
-                
-                switch (currentShot)
+
+                Vector3 target = new Vector3(waypoints[currentWaypoint].position.x, hoverHeight, waypoints[currentWaypoint].position.z);
+
+                if (Vector3.Distance(target, transform.position) > waypointRange)
                 {
-                    case 1:
-                        Drohnenshot1();
-                        break;
-                    case 2:
-                        Drohnenshot2();
-                        break;
-                    case 3:
-                        Drohnenshot3();
-                        break;
-                    case 4:
-                        FollowCarDrohnenshot();
-                        break;
-                    default:
-                        FollowCar();
-                        break;
+                    Vector3 direction = (target - transform.position).normalized;
+                    transform.position += direction * 200 * Time.deltaTime;
                 }
-                
-            }
-        }
-        }
-        else{
-          
 
-        if (followCar)
-        {
-            switch (currentShot)
-            {
-                case 1:
-                    Drohnenshot1();
-                    break;
-                case 2:
-                    Drohnenshot2();
-                    break;
-                case 3:
-                    Drohnenshot3();
-                    break;
-                case 4:
-                    FollowCarDrohnenshot();
-                    break;
-                default:
-                    FollowCar();
-                    break;
+                else
+                {
+                    angekommen = true;
+                    fliegeZumAnderenOrt = false;
+
+                }
+
             }
+
         }
         else
         {
-            FlyToWaypointWithoutTimer();
-        }
+
+            if (timerButton)
+            {
+
+                if (!atWaypoint)
+                {
+                    FlyToWaypointWithTimer();
+
+                }
+
+
+
+                if (!isTimeSet)
+                {
+                    time = CarAtWaypointTime();
+                    isTimeSet = true;
+                    Debug.Log("Time is set: " + time);
+                }
+
+                if (isTimeSet)
+                {
+                    if (time > 0)
+                    {
+                        time -= Time.deltaTime;
+                        Debug.Log("Time remaining: " + time + " seconds");
+
+                    }
+                    else
+                    {
+
+                        Debug.Log("Drone is moving");
+
+
+                        switch (currentShot)
+                        {
+                            case 1:
+                                Drohnenshot1();
+                                break;
+                            case 2:
+                                Drohnenshot2();
+                                break;
+                            case 3:
+                                Drohnenshot3();
+                                break;
+                            case 4:
+                                FollowCarDrohnenshot();
+                                break;
+                            default:
+                                FollowCar();
+                                break;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+
+
+                if (followCar)
+                {
+                    switch (currentShot)
+                    {
+                        case 1:
+                            Drohnenshot1();
+                            break;
+                        case 2:
+                            Drohnenshot2();
+                            break;
+                        case 3:
+                            Drohnenshot3();
+                            break;
+                        case 4:
+                            FollowCarDrohnenshot();
+                            break;
+                        default:
+                            FollowCar();
+                            break;
+                    }
+                }
+                else
+                {
+                    FlyToWaypointWithoutTimer();
+                }
+
+            }
 
         }
 
