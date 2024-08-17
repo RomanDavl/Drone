@@ -589,22 +589,22 @@ public class DroneMovement : MonoBehaviour
         // Berechne das Ziel basierend auf dem aktuellen Waypoint
         Vector3 target;
 
-        if (currentWaypoint < 5)
+        if (currentWaypoint < waypoints.Count/2)
         {
-            target = new Vector3(waypoints[7].position.x + 200, hoverHeight + 100, waypoints[7].position.z - 60);
+            target = new Vector3(waypoints[waypoints.Count-1].position.x + GetXDirection() * 20, hoverHeight + 100, waypoints[waypoints.Count-1].position.z + GetZDirection() * 20);
             //zooom += zoomSpeed * Time.deltaTime;
 
         }
-        else if (currentWaypoint < 9)
+        else if (currentWaypoint < waypoints.Count-3)
         {
-            target = new Vector3(waypoints[10].position.x, hoverHeight + 50, waypoints[10].position.z - 70);
+            target = new Vector3(waypoints[waypoints.Count/2].position.x, hoverHeight + 50, waypoints[waypoints.Count / 2].position.z + GetZDirection() * 70);
 
             //zooom += zoomSpeed * Time.deltaTime;
         }
         
         else
         {
-            target = new Vector3(waypoints[5].position.x -100, hoverHeight +200, waypoints[5].position.z - 10);
+            target = new Vector3(waypoints[0].position.x + GetXDirection() * 10, hoverHeight +200, waypoints[0].position.z + GetZDirection() * 10);
         }
 
 

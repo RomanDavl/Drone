@@ -19529,15 +19529,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca9058e23134a06478032b60f2b1a653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetWaypoint: {fileID: 1515861673}
+  targetWaypoint: {fileID: 1771281739}
   speed: 15
   rotationSpeed: 2
   hoverHeight: 20
   carFollowSpeed: 5
-  carTarget: {fileID: 188351519}
-  waypointContainer: {fileID: 1419126826}
+  carTarget: {fileID: 967417893}
+  waypointContainer: {fileID: 1041307291}
   zoomSpeed: 5
-  auto: {fileID: 188351521}
+  auto: {fileID: 967417895}
+  Tesla: 0
+  teleportPosition: {x: 1928.26, y: 40, z: -468.6}
 --- !u!54 &2693294497608263360
 Rigidbody:
   m_ObjectHideFlags: 0
