@@ -57,7 +57,8 @@ public class DroneMovement : MonoBehaviour
         cameraTransform = Camera.main.transform;
 
         waypoints = waypointContainer.waypoints;
-        currentWaypoint = 0;
+        currentWaypoint = waypointContainer.GetPositionOfWaypoint(waypoints,targetWaypoint);
+        Debug.Log("current waypoint: "+ currentWaypoint);
         waypointRange = 3f;
         isTimeSet = false;
         float total = waypointContainer.GetDistanceTotal();

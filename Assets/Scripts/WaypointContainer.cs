@@ -148,6 +148,37 @@ public class WaypointContainer : MonoBehaviour
         return list;
     }
 
+    public int GetPositionOfWaypoint(List<Transform> waypointlist,Transform startingWaypoint)
+    {
+
+        int positionOfWaypoint = 0;
+        Boolean atWaypoint = false;
+
+        foreach (Transform t in waypointlist)
+        {
+            if (atWaypoint == false)
+            {
+                if (t == startingWaypoint)
+                {
+                    atWaypoint = true;
+                    return positionOfWaypoint;
+                }
+                else
+                {
+                    positionOfWaypoint++;
+                    continue;
+                }
+            }
+           
+
+        }
+
+        return positionOfWaypoint;
+
+    }
+
+
+
 }
 
 
