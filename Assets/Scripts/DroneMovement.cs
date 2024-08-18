@@ -135,10 +135,10 @@ public class DroneMovement : MonoBehaviour
                                 Drohnenshot3();
                                 break;
                             case 4:
-                                FollowCarDrohnenshot();
+                                Drohnenshot4();
                                 break;
                             default:
-                                FollowCar();
+                                FollowCarDrohnenshot();
                                 break;
                         }
 
@@ -163,11 +163,11 @@ public class DroneMovement : MonoBehaviour
                             Drohnenshot3();
                             break;
                         case 4:
-                            FollowCarDrohnenshot();
+                            Drohnenshot4();
                             break;
                         default:
-                            FollowCar();
-                            break;
+                            FollowCarDrohnenshot();
+                        break;
                     }
                 }
                 else
@@ -587,6 +587,57 @@ public class DroneMovement : MonoBehaviour
 
             Vector3 direction = (target - transform.position).normalized;
             transform.position += direction * 18 * Time.deltaTime;
+            Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
+            Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
+            cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
+        }
+        else
+        {
+            // Erhöhe den aktuellen Waypoint, wenn das Ziel erreicht ist
+            currentWaypoint += 1;
+        }
+    }
+
+    void Drohnenshot4()
+    {
+        if (currentWaypoint >= waypoints.Count)
+        {
+            // Wenn alle Waypoints erreicht sind, kann die Funktion beendet werden
+            return;
+        }
+
+        // Berechne das Ziel basierend auf dem aktuellen Waypoint
+        Vector3 target;
+
+        if (currentWaypoint < 5)
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x, hoverHeight + 30, waypoints[currentWaypoint].position.z + GetZDirection() * 60);
+            //zooom += zoomSpeed * Time.deltaTime;
+
+        }
+        else if (currentWaypoint < 10)
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x , hoverHeight + 60, waypoints[currentWaypoint].position.z + GetZDirection() * 80);
+
+            //zooom += zoomSpeed * Time.deltaTime;
+        }
+        else if (currentWaypoint < 15)
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x + GetXDirection() * 50, hoverHeight + 10, waypoints[currentWaypoint].position.z);
+            //zooom += zoomSpeed * Time.deltaTime;
+        }
+        else
+        {
+            target = new Vector3(waypoints[currentWaypoint].position.x + GetXDirection() * 50, hoverHeight + 10, waypoints[currentWaypoint].position.z);
+        }
+
+
+        // Bewege das Objekt nur, wenn es noch nicht nahe genug am Ziel ist
+        if (Vector3.Distance(target, transform.position) > waypointRange)
+        {
+
+            Vector3 direction = (target - transform.position).normalized;
+            transform.position += direction * speed * Time.deltaTime;
             Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
             Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
             cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
