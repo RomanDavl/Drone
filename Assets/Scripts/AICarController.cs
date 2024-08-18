@@ -15,6 +15,8 @@ public class AICarController : MonoBehaviour
     [SerializeField] private bool isInsideBraking;
     public bool IsInsideBraking { get { return isInsideBraking; } set { isInsideBraking = value; } }
     private float maxAngle = 45f;
+    [SerializeField] private Transform drone;
+    [SerializeField] private float proximityRadius = 100f;
 
     void Start()
     {
@@ -26,6 +28,18 @@ public class AICarController : MonoBehaviour
 
     void Update()
     {
+        float distanceToTarget = Vector3.Distance(transform.position, drone.position);
+
+        if (distanceToTarget <= proximityRadius)
+        {
+            gasInput = 1f;
+        }
+        else
+        {
+            gasInput = 0f;
+            return;
+        }
+
         if (currentWaypoint >= waypoints.Count || Vector3.Distance(waypoints[currentWaypoint].position, transform.position) < waypointRange)
         {
             if (currentWaypoint >= waypoints.Count)

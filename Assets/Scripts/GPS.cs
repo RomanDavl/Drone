@@ -39,7 +39,7 @@ public class GPS : MonoBehaviour
         for (int i = 0; i < remainingWaypoints; i++)
         {
             Vector3 wpPosition = waypoints[currentWaypoint + i].position;
-            wpPosition.y = 19;
+            wpPosition.y = 96;
             lineRenderer.SetPosition(i + 1, wpPosition);
         }
     }
