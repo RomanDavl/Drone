@@ -12,7 +12,7 @@ using UnityEngine.InputSystem.XR;
 public class DroneMovement : MonoBehaviour
 {
     public Transform targetWaypoint; // Das Zielobjekt
-    public float speed = 15f; // Geschwindigkeit der Drohne
+    public float speed= 11f; // Geschwindigkeit der Drohne
     public float rotationSpeed = 2f; // Drehgeschwindigkeit der Drohne
     public float hoverHeight = 10f; // Höhe, in der die Drohne über dem Waypoint schweben soll
     public float carFollowSpeed = 20f; // Geschwindigkeit, mit der die Drohne dem Auto folgt
@@ -39,13 +39,9 @@ public class DroneMovement : MonoBehaviour
     float time;
     Boolean isTimeSet;
     Boolean atWaypoint = false;
-
     Boolean timerButton = true;
-    Boolean fliegeZumAnderenOrt;
-    Boolean angekommen;
 
     public Boolean Tesla = true;
-
      public Vector3 teleportPosition = new Vector3(1928.26f, 40f, -468.6f);
 
 
@@ -72,14 +68,12 @@ public class DroneMovement : MonoBehaviour
         Debug.Log("Die Distanz des Drohnenshots beträgt: " + distanceOfDrohenshot);
 
         DrohnenshotTime();
-        
-
-        fliegeZumAnderenOrt = true;
-        angekommen = false;
+        speed = 11f;
 
         if(Tesla==false){
              transform.position = teleportPosition;
             Debug.Log("Das Objekt wurde teleportiert.");
+            speed = 13f;
         }
         else
         {
@@ -87,36 +81,14 @@ public class DroneMovement : MonoBehaviour
         }
 
 
+
+
     }
 
     void FixedUpdate()
     {
-        /*if (fliegeZumAnderenOrt == true)
-        {
-
-            if (angekommen == false)
-            {
-
-                Vector3 target = new Vector3(waypoints[currentWaypoint].position.x, hoverHeight, waypoints[currentWaypoint].position.z);
-
-                if (Vector3.Distance(target, transform.position) > waypointRange)
-                {
-                    Vector3 direction = (target - transform.position).normalized;
-                    transform.position += direction * 200 * Time.deltaTime;
-                }
-
-                else
-                {
-                    angekommen = true;
-                    fliegeZumAnderenOrt = false;
-
-                }
-
-            }
-
-        }
-        else*/
-        {
+       
+    
 
             if (timerButton)
             {
@@ -205,7 +177,7 @@ public class DroneMovement : MonoBehaviour
 
             }
 
-        }
+        
 
 
     }
@@ -451,7 +423,7 @@ public class DroneMovement : MonoBehaviour
         {
 
             Vector3 direction = (target - transform.position).normalized;
-            transform.position += direction * 12 * Time.deltaTime;
+            transform.position += direction * speed * Time.deltaTime;
             Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
             Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
             cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
@@ -510,7 +482,7 @@ public class DroneMovement : MonoBehaviour
             {
 
                 Vector3 direction = (target - transform.position).normalized;
-                transform.position += direction * 13 * Time.deltaTime;
+                transform.position += direction * speed * Time.deltaTime;
                 Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
                 Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
                 cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
@@ -565,7 +537,7 @@ public class DroneMovement : MonoBehaviour
         {
             
             Vector3 direction = (target - transform.position).normalized;
-            transform.position += direction * 12 * Time.deltaTime;
+            transform.position += direction * speed * Time.deltaTime;
             Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
             Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
             cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, cameraTargetRotation, rotationSpeed * Time.deltaTime * 100);
