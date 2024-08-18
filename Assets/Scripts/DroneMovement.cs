@@ -68,7 +68,7 @@ public class DroneMovement : MonoBehaviour
         Debug.Log("Die Distanz des Drohnenshots beträgt: " + distanceOfDrohenshot);
 
         DrohnenshotTime();
-        speed = 11f;
+        speed = 12f;
 
         if(Tesla==false){
              transform.position = teleportPosition;
@@ -114,13 +114,13 @@ public class DroneMovement : MonoBehaviour
                     if (time > 0)
                     {
                         time -= Time.deltaTime;
-                        //Debug.Log("Time remaining: " + time + " seconds");
+                        Debug.Log("Time remaining: " + time + " seconds");
 
                     }
                     else
                     {
 
-                        //Debug.Log("Drone is moving");
+                        Debug.Log("Drone is moving");
 
 
                         switch (currentShot)
@@ -199,7 +199,7 @@ public class DroneMovement : MonoBehaviour
         }
         else
         {
-            time = 0;
+            time = 6;
         }
         
 
@@ -452,6 +452,7 @@ public class DroneMovement : MonoBehaviour
 
             if (currentWaypoint < 5)
             {
+               
 
                 target = new Vector3(waypoints[currentWaypoint].position.x + GetXDirection() * 20, hoverHeight, waypoints[currentWaypoint].position.z);
                 //zooom += zoomSpeed * Time.deltaTime;
