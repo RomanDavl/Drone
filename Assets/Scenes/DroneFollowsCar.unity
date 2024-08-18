@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7282,7 +7282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 1487051601}
-  m_PathPosition: 0.02834248
+  m_PathPosition: 1.690114
   m_PositionUnits: 0
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
@@ -19505,7 +19505,7 @@ MonoBehaviour:
   waypointContainer: {fileID: 1041307291}
   zoomSpeed: 5
   auto: {fileID: 967417895}
-  Tesla: 0
+  Tesla: 1
   teleportPosition: {x: 1928.26, y: 40, z: -468.6}
 --- !u!54 &2693294497608263360
 Rigidbody:

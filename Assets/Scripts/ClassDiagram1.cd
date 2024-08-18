@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AICarController">
+    <Position X="17" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAAACAAASAAAAAAAAgAgAIAABEAAgAAAQAAAAM=</HashCode>
+      <FileName>Assets\Scripts\AICarController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="waypointContainer" />
+      <Field Name="carController" />
+      <Field Name="drone" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BrakingZone">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\BrakingZone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController">
+    <Position X="14" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAZAAIAIACCxAAQIBAAEAABBAAAQAQQQAoAAgAAYAAA=</HashCode>
+      <FileName>Assets\Scripts\CarController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Drone">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Drone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DroneMovement">
+    <Position X="4.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EBABAQAAAiIBAIBAIIgIAAgCAGIAAQAA4wRABBEEAEY=</HashCode>
+      <FileName>Assets\Scripts\DroneMovement.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="carTarget" />
+      <Field Name="waypointContainer" />
+      <Field Name="auto" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GPS">
+    <Position X="19.75" Y="0.5" Width="1.5" />
+    <AssociationLine Name="waypointContainer" Type="WaypointContainer">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-1.075" Y="0.088" Height="0.182" Width="1.413" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>EAQABAAAACAAAAEAAAAAAAAIAAIAAgAAAAAAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\GPS.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="waypointContainer" />
+      <Field Name="car" />
+      <Field Name="controller" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NoRotation">
+    <Position X="21" Y="6" Width="1.5" />
+    <AssociationLine Name="referenceObject" Type="UnityEngine.GameObject">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.736" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QEQAAAAAACAgAAAAAAAAIAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\NoRotation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="referenceObject" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PauseScript">
+    <Position X="10.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAAAACAICiAAAABIQIACAEQAgEAAAAAAAAkQIAA=</HashCode>
+      <FileName>Assets\Scripts\PauseScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rotation">
+    <Position X="18.75" Y="6" Width="1.5" />
+    <AssociationLine Name="referenceObject" Type="UnityEngine.GameObject">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.578" Y="0.143" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QEQAAAAAACAAAQAAAAAAAAAAAAAAAACAAAAAAABAAAA=</HashCode>
+      <FileName>Assets\Scripts\Rotation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="referenceObject" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TargetManager">
+    <Position X="8" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAIAAAAAAAEAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\TargetManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WaypointContainer">
+    <Position X="9.25" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAACAAAAACAAAAAAAAgAEAEIAAAAAAgBAAAAABEA=</HashCode>
+      <FileName>Assets\Scripts\WaypointContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WaypointManagaer">
+    <Position X="8" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\WaypointManagaer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="drone" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="UnityEngine.GameObject" Collapsed="true">
+    <Position X="22.75" Y="1" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="UnityEngine.Transform" Collapsed="true">
+    <Position X="16" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
