@@ -18,13 +18,16 @@ public class DroneMovement : MonoBehaviour
     public float carFollowSpeed = 20f; // Geschwindigkeit, mit der die Drohne dem Auto folgt
 
     private bool followCar = false; // Flag, um das Folgen des Autos zu aktivieren
-    [SerializeField] private Transform carTarget; // Das Auto-Zielobjekt
+    private Transform carTarget; // Das Auto-Zielobjekt
 
     private Transform cameraTransform; // Die Kamera, die an der Drohne befestigt ist
     
     int i = 0;
 
-    [SerializeField] private WaypointContainer waypointContainer;
+
+    [SerializeField] WaypointContainer teslaWaypointContainer;
+    [SerializeField] WaypointContainer dodgeWaypointContainer;
+    private WaypointContainer waypointContainer;
     private List<Transform> waypoints;
     private int currentWaypoint;
     private float currentAngle;
@@ -33,7 +36,7 @@ public class DroneMovement : MonoBehaviour
     private float zooom = 1;
     public float zoomSpeed = 5f;
 
-    [SerializeField] private CarController auto;
+    private CarController auto;
     private int currentShot = 0;
 
     float time;
@@ -42,7 +45,7 @@ public class DroneMovement : MonoBehaviour
     Boolean timerButton = true;
 
     public Boolean Tesla = true;
-    public Vector3 teleportPosition = new Vector3(1928.26f, 40f, -468.6f);
+    public Vector3 teleportPosition;
 
 
 
@@ -50,6 +53,8 @@ public class DroneMovement : MonoBehaviour
 
     void Start()
     {
+        ChangeAuto();
+
         // Findet die Hauptkamera, die als Kind der Drohne angehängt ist
         cameraTransform = Camera.main.transform;
 
@@ -69,35 +74,11 @@ public class DroneMovement : MonoBehaviour
 
         DrohnenshotTime();
         speed = 12f;
-         
-
-        if(Tesla==false){
-            //Doge
-            GameObject carObject = GameObject.Find("Dodge");
-            carTarget = carObject.transform;
-            auto = carObject.GetComponent<CarController>();
-            transform.position = teleportPosition;
-            Debug.Log("Das Objekt wurde teleportiert.");
-            speed = 14f;
-        }
-        else
-        {
-            //Tesla
-            GameObject carObject = GameObject.Find("Tesla");
-            carTarget = carObject.transform;
-            auto = carObject.GetComponent<CarController>();
-            Debug.Log("Das Objekt wurde nicht teleportiert.");
-        }
-
-
-
 
     }
 
     void FixedUpdate()
     {
-       
-    
 
             if (timerButton)
             {
@@ -681,7 +662,29 @@ public class DroneMovement : MonoBehaviour
             }
         }
 
-    
+    void ChangeAuto()
+    {
+
+        if (Tesla == false)
+        {
+            GameObject carObject = GameObject.Find("Dodge");
+            carTarget = carObject.transform;
+            auto = carObject.GetComponent<CarController>();
+            transform.position = new Vector3(1932.253f, 13.29589f, -356.8147f);
+            waypointContainer = dodgeWaypointContainer;
+            targetWaypoint = waypointContainer.waypoints[0];
+            speed = 14f;
+        }
+        else
+        {
+            GameObject carObject = GameObject.Find("Tesla");
+            carTarget = carObject.transform;
+            auto = carObject.GetComponent<CarController>();
+            transform.position = new Vector3(73.30956f, 21.68828f, 9.073004f);
+            waypointContainer = teslaWaypointContainer;
+            targetWaypoint = waypointContainer.waypoints[2];
+        }
+    }
 
 
 

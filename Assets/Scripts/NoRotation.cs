@@ -15,7 +15,7 @@ public class NoRotation : MonoBehaviour
         initialPosition = transform.position;
         initialRotation = transform.rotation;
         initialY = initialRotation.y;
-        Debug.Log(initialRotation.eulerAngles.x + "," + initialRotation.eulerAngles.y + "," + initialRotation.eulerAngles.z);
+        //Debug.Log(initialRotation.eulerAngles.x + "," + initialRotation.eulerAngles.y + "," + initialRotation.eulerAngles.z);
     }
 
     // Update is called once per frame
