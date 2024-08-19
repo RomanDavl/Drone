@@ -42,7 +42,7 @@ public class DroneMovement : MonoBehaviour
     Boolean timerButton = true;
 
     public Boolean Tesla = true;
-     public Vector3 teleportPosition = new Vector3(1928.26f, 40f, -468.6f);
+    public Vector3 teleportPosition = new Vector3(1928.26f, 40f, -468.6f);
 
 
 
@@ -69,14 +69,21 @@ public class DroneMovement : MonoBehaviour
 
         DrohnenshotTime();
         speed = 12f;
+         
 
         if(Tesla==false){
-             transform.position = teleportPosition;
+            GameObject carObject = GameObject.Find("Dodge");
+            carTarget = carObject.transform;
+            auto = carObject.GetComponent<CarController>();
+            transform.position = teleportPosition;
             Debug.Log("Das Objekt wurde teleportiert.");
             speed = 13f;
         }
         else
         {
+            GameObject carObject = GameObject.Find("Tesla");
+            carTarget = carObject.transform;
+            auto = carObject.GetComponent<CarController>();
             Debug.Log("Das Objekt wurde nicht teleportiert.");
         }
 
