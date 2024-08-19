@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine;
 using Unity.VisualScripting;
 
 public class PauseScript : MonoBehaviour
@@ -22,6 +21,10 @@ public class PauseScript : MonoBehaviour
 
     public Button Drohnenshot4;
 
+    public Button Drohnenshot5;
+
+    public Button Drohnenshot6;
+
     public GameObject shotButtonsPanel;// Parent object von den shot buttons
     private bool isPaused = false;
     private int selectedShot = 1;
@@ -38,15 +41,19 @@ public class PauseScript : MonoBehaviour
             pauseButton.onClick.AddListener(Pause);
             resumeButton.onClick.AddListener(Resume);
         }
-        if(  Drohnenshot1 != null &&  Drohnenshot2 != null &&  Drohnenshot3 != null && Drohnenshot4 != null ){
+        if(  Drohnenshot1 != null &&  Drohnenshot2 != null &&  Drohnenshot3 != null && Drohnenshot4 != null && Drohnenshot5 != null && Drohnenshot6 != null){
             Drohnenshot1.onClick.AddListener(SelectShot1);
             Drohnenshot2.onClick.AddListener(SelectShot2);
             Drohnenshot3.onClick.AddListener(SelectShot3);
             Drohnenshot4.onClick.AddListener(SelectShot4);
+            Drohnenshot5.onClick.AddListener(SelectShot5);
+            Drohnenshot6.onClick.AddListener(SelectShot6);
             Drohnenshot1.gameObject.SetActive(false);
             Drohnenshot2.gameObject.SetActive(false);
             Drohnenshot3.gameObject.SetActive(false);
             Drohnenshot4.gameObject.SetActive(false);
+            Drohnenshot5.gameObject.SetActive(false);
+            Drohnenshot6.gameObject.SetActive(false);
         }
         if (shotButtonsPanel != null){
             shotButtonsPanel.SetActive(false);
@@ -102,6 +109,8 @@ public class PauseScript : MonoBehaviour
             Drohnenshot2.gameObject.SetActive(true);
             Drohnenshot3.gameObject.SetActive(true);
             Drohnenshot4.gameObject.SetActive(true);
+            Drohnenshot5.gameObject.SetActive(true);
+            Drohnenshot6.gameObject.SetActive(true);
         }
         if(TimerButton!=null){
             TimerButton.gameObject.SetActive(true);
@@ -124,6 +133,8 @@ public class PauseScript : MonoBehaviour
             Drohnenshot2.gameObject.SetActive(false);
             Drohnenshot3.gameObject.SetActive(false);
             Drohnenshot4.gameObject.SetActive(false);
+            Drohnenshot5.gameObject.SetActive(false);
+            Drohnenshot6.gameObject.SetActive(false);
         }
         if(TimerButton!=null){
             TimerButton.gameObject.SetActive(false);
@@ -137,12 +148,14 @@ public class PauseScript : MonoBehaviour
             pauseButton.gameObject.SetActive(!isPaused);
             resumeButton.gameObject.SetActive(isPaused);
         }
-         if (Drohnenshot1 != null && Drohnenshot2 != null && Drohnenshot3 != null && Drohnenshot4!= null)
+         if (Drohnenshot1 != null && Drohnenshot2 != null && Drohnenshot3 != null && Drohnenshot4!= null && Drohnenshot5!= null && Drohnenshot6!= null)
         {
             Drohnenshot1.gameObject.SetActive(isPaused);
             Drohnenshot2.gameObject.SetActive(isPaused);
             Drohnenshot3.gameObject.SetActive(isPaused);
             Drohnenshot4.gameObject.SetActive(isPaused);
+            Drohnenshot5.gameObject.SetActive(isPaused);
+            Drohnenshot6.gameObject.SetActive(isPaused);
         }
         if (TimerButton!= null){
             TimerButton.gameObject.SetActive(isPaused);
@@ -160,6 +173,8 @@ public class PauseScript : MonoBehaviour
         Drohnenshot2.GetComponent<Image>().color = Color.white;
         Drohnenshot3.GetComponent<Image>().color = Color.white;
         Drohnenshot4.GetComponent<Image>().color = Color.white;
+        Drohnenshot5.GetComponent<Image>().color = Color.white;
+        Drohnenshot6.GetComponent<Image>().color = Color.white;
         
 
         // Highlight the selected button
@@ -176,6 +191,12 @@ public class PauseScript : MonoBehaviour
                 break;
             case 4:
                 Drohnenshot4.GetComponent<Image>().color = Color.green;
+                break;
+            case 5:
+                Drohnenshot5.GetComponent<Image>().color = Color.green;
+                break;
+            case 6:
+                Drohnenshot6.GetComponent<Image>().color = Color.green;
                 break;
         }
         
@@ -198,6 +219,14 @@ public class PauseScript : MonoBehaviour
     private void SelectShot4()
     {
         SelectShot(4);
+    }
+    private void SelectShot5()
+    {
+        SelectShot(5);
+    }
+    private void SelectShot6()
+    {
+        SelectShot(6);
     }
     private void ChangeColor()
     {
