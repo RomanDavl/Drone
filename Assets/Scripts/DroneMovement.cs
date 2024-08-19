@@ -12,7 +12,7 @@ using UnityEngine.InputSystem.XR;
 public class DroneMovement : MonoBehaviour
 {
     public Transform targetWaypoint; // Das Zielobjekt
-    public float speed= 11f; // Geschwindigkeit der Drohne
+    public float speed= 12f; // Geschwindigkeit der Drohne
     public float rotationSpeed = 2f; // Drehgeschwindigkeit der Drohne
     public float hoverHeight = 10f; // Höhe, in der die Drohne über dem Waypoint schweben soll
     public float carFollowSpeed = 20f; // Geschwindigkeit, mit der die Drohne dem Auto folgt
@@ -53,6 +53,7 @@ public class DroneMovement : MonoBehaviour
 
     void Start()
     {
+        speed = 12f;
         ChangeAuto();
 
         // Findet die Hauptkamera, die als Kind der Drohne angehängt ist
@@ -73,7 +74,7 @@ public class DroneMovement : MonoBehaviour
         Debug.Log("Die Distanz des Drohnenshots beträgt: " + distanceOfDrohenshot);
 
         DrohnenshotTime();
-        speed = 12f;
+        
 
     }
 
@@ -485,7 +486,6 @@ public class DroneMovement : MonoBehaviour
             {
 
                 Vector3 direction = (target - transform.position).normalized;
-                Debug.Log("speed " + speed);
                 transform.position += direction * speed * Time.deltaTime;
                 Vector3 cameraDirection = (carTarget.position - cameraTransform.position).normalized;
                 Quaternion cameraTargetRotation = Quaternion.LookRotation(cameraDirection);
