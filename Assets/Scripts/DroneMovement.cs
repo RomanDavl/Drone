@@ -72,6 +72,7 @@ public class DroneMovement : MonoBehaviour
          
 
         if(Tesla==false){
+            //Doge
             GameObject carObject = GameObject.Find("Dodge");
             carTarget = carObject.transform;
             auto = carObject.GetComponent<CarController>();
@@ -81,6 +82,7 @@ public class DroneMovement : MonoBehaviour
         }
         else
         {
+            //Tesla
             GameObject carObject = GameObject.Find("Tesla");
             carTarget = carObject.transform;
             auto = carObject.GetComponent<CarController>();
