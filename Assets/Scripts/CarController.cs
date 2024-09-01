@@ -22,7 +22,7 @@ public class CarController : MonoBehaviour
 
     private float currentAcceleration = 0f;
     private float currentBrakingForce = 0f;
-    private Rigidbody playerRB;
+    private Rigidbody carRB;
     //private float currentTurnAngle = 0f;
     [SerializeField] private float speed;
     public float Speed { get { return speed; } set { speed = value; } }
@@ -31,7 +31,7 @@ public class CarController : MonoBehaviour
 
     void Start()
     {
-        playerRB = GetComponent<Rigidbody>();
+        carRB = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -57,9 +57,9 @@ public class CarController : MonoBehaviour
 
         ApplySteering(steeringIn);
 
-        slipAngle = Vector3.Angle(transform.forward, playerRB.velocity - transform.forward);
+        slipAngle = Vector3.Angle(transform.forward, carRB.velocity - transform.forward);
 
-        float movingDirection = Vector3.Dot(transform.forward, playerRB.velocity);
+        float movingDirection = Vector3.Dot(transform.forward, carRB.velocity);
 
         if (movingDirection < -0.5f && currentAcceleration > 0)
         {
@@ -101,7 +101,7 @@ public class CarController : MonoBehaviour
 
         if (Mathf.Abs(slipAngle) < 120f)
         {
-            steeringAngle += Vector3.SignedAngle(transform.forward, playerRB.velocity + transform.forward, Vector3.up);
+            steeringAngle += Vector3.SignedAngle(transform.forward, carRB.velocity + transform.forward, Vector3.up);
         }
         steeringAngle = Mathf.Clamp(steeringAngle, -maxSteeringAngle, maxSteeringAngle);
         frontLeft.steerAngle = steeringAngle;
